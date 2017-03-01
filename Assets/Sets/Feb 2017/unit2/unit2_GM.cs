@@ -101,23 +101,37 @@ public class unit2_GM : MonoBehaviour {
 	public void Assign_Total_Cost(){
 		//first assign the laborer costs
 		for(int i = 0; i < billObj.Count; i++){
-			float T1 = laborer_EnergyScore - laborer_MaterialScore;
-			float T2 = laborer_MaterialScore - laborer_EnergyScore;
-			if (T1 > T2) {
-				billObj [i].GetComponent<productScript> ().laborCost = billObj [i].GetComponent<productScript> ().materialCost / laborer_MaterialScore;
 
-			} else if (T2 > T1) {
+
+			float T1 = (billObj [i].GetComponent<productScript> ().materialCost / laborer_MaterialScore) - (billObj [i].GetComponent<productScript> ().energyCost / laborer_EnergyScore);
+				//if positive then material labor costs is higher and will calculate product's total labor cost. 
+
+			if (T1 > 0) { //check what will take the most time, make that the labor cost
+				billObj [i].GetComponent<productScript> ().laborCost = billObj [i].GetComponent<productScript> ().materialCost / laborer_MaterialScore;
+			} else if (T1 < 0) {//check what will take the most time, make that the labor cost
 				billObj [i].GetComponent<productScript> ().laborCost = billObj [i].GetComponent<productScript> ().energyCost / laborer_EnergyScore;
 			}
 
 
+
+			float eCost = billObj [i].GetComponent<productScript> ().energyCost;
+			float mCost = billObj [i].GetComponent<productScript> ().materialCost;
+			float lCost = billObj [i].GetComponent<productScript> ().laborCost;
+
+			//Now you have the labor score, run the calculator for each product's values, then set the product[i] costs to the calculator output
+			_calculator.GetComponent<calculatorScript>()._Calculator_GM(eCost, lCost, mCost);
+
+
+
+			billObj [i].GetComponent<productScript> ().energyCost = _calculator.GetComponent<calculatorScript>().mInv[0,0];
+			billObj [i].GetComponent<productScript> ().laborCost = _calculator.GetComponent<calculatorScript>().mInv[1,0];
+			billObj [i].GetComponent<productScript> ().materialCost = _calculator.GetComponent<calculatorScript>().mInv[2,0];
 
 
 			//------VERY VERY END -----//
 			totalCost_Labor += billObj [i].GetComponent<productScript> ().laborCost;
 			totalCost_Energy += billObj [i].GetComponent<productScript> ().energyCost;
 			totalCost_Material += billObj [i].GetComponent<productScript> ().materialCost;
-			print (totalCost_Energy + " " + totalCost_Material + " " + totalCost_Labor);
 
 			//go through the products, divide by the materialScore assign the laborer score. 
 				//calculate total cost using the collective costs of the objects, plug into the calculator, for each object to return the value

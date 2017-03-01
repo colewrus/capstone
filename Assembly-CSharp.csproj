@@ -47,10 +47,10 @@
   <ItemGroup>
      <Compile Include="Assets\Sets\Feb 2017\unit1\matrixClass.cs" />
      <Compile Include="Assets\Sets\Feb 2017\unit1\unitTest_1.cs" />
+     <Compile Include="Assets\Sets\Feb 2017\unit2\calculatorScript.cs" />
      <Compile Include="Assets\Sets\Feb 2017\unit2\laborScript.cs" />
      <Compile Include="Assets\Sets\Feb 2017\unit2\productScript.cs" />
      <Compile Include="Assets\Sets\Feb 2017\unit2\unit2_GM.cs" />
-     <Compile Include="Assets\calculatorScript.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

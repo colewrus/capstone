@@ -50,7 +50,6 @@ public class unitTest_1 : MonoBehaviour {
 
 
 		float det = 0;
-		//det = (testM [1, 1] * ((testM [3, 3] * testM [2, 2]) - (testM [3, 2] * testM [2, 3])) - (testM [2, 1] * ((testM [3, 3] * testM [1, 2]) - (testM [3, 2] * testM [1, 3]))) + (testM [3, 1] ((testM [2, 3] * testM [1, 2]) - (testM [2, 2] * testM [1, 3]))));
 		det = testM[0,0] * (testM[2,2]*testM[1,1]-testM[2,1]*testM[1,2]) - testM[1,0] * (testM[2,2]*testM[0,1] -testM [2,1] * testM [0,2]) + testM[2,0] * (testM [1,2] * testM [0,1] -testM [1,1] * testM [0,2]);
 		det = 1 / det;
 		print (det);

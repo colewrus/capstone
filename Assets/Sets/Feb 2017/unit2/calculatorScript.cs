@@ -21,15 +21,32 @@ public class calculatorScript : MonoBehaviour {
 
 	public Matrix4x4 mInv;
 	public Matrix4x4 rawBill;
-	//List <float> rawBill = new List<float>(); //raw cost for the bill of goods 
+
 
 	// Use this for initialization
 	void Start () {
-		for (int i = 0; i < 4; i++) {
+	}
+
+	public void _Calculator_GM(float eCost, float lCost, float mCost){
+		for (int i = 0; i < 4; i++) {//reset mInv[] and testM[] to all 1
 			for (int j = 0; j < 4; j++) {
 				mInv [i, j] = 1;
+				testM [i, j] = 1;
 			}
 		}
+
+		for (int i = 0; i < 3; i++) { //reset the testM Matrix so we don't bugger the calculations
+			for (int j = 0; j < 3; j++) {
+				if (i == 0) {
+					testM [i, j] = energy_1x3 [j];
+				} else if (i == 1) {
+					testM [i, j] = materials_1x3 [j];
+				} else if (i == 2) {
+					testM [i, j] = labor_1x3 [j];
+				}
+			}
+		}
+
 		//create the identity matrix and go ahead and multiply 
 		for (int i = 0; i < identityMatrix.Length; i++) {
 			for (int j = 0; j < identityMatrix.Length; j++) {
@@ -37,7 +54,7 @@ public class calculatorScript : MonoBehaviour {
 				testM [i, j] = identityMatrix [i].Matrix [j] + testM [i, j];
 			}
 		}
-		print (testM);
+
 		List<float> tempList = new List<float>();
 		tempList.Add ((testM [2,2] * testM [1,1]) - (testM [2,1] * testM [1,2]));//---1,1
 		tempList.Add (-((testM [0,1] * testM [2,2]) - (testM [0,2] * testM [2,1])));//---1,2--
@@ -53,10 +70,8 @@ public class calculatorScript : MonoBehaviour {
 
 
 		float det = 0;
-		//det = (testM [1, 1] * ((testM [3, 3] * testM [2, 2]) - (testM [3, 2] * testM [2, 3])) - (testM [2, 1] * ((testM [3, 3] * testM [1, 2]) - (testM [3, 2] * testM [1, 3]))) + (testM [3, 1] ((testM [2, 3] * testM [1, 2]) - (testM [2, 2] * testM [1, 3]))));
 		det = testM[0,0] * (testM[2,2]*testM[1,1]-testM[2,1]*testM[1,2]) - testM[1,0] * (testM[2,2]*testM[0,1] -testM [2,1] * testM [0,2]) + testM[2,0] * (testM [1,2] * testM [0,1] -testM [1,1] * testM [0,2]);
 		det = 1 / det;
-		print (det);
 		int n = 0;
 
 		for (int i = 0; i < 3; i++) {
@@ -66,22 +81,16 @@ public class calculatorScript : MonoBehaviour {
 				testM [i, j] = testM [i, j] * det;
 			}
 		}
-
-
-	}
-
-
-	public void AddInputValue(int val){
-		if (val == 0) {
-			rawBill [0, 0] = energyCosts; //(float)double.Parse (energyInput.text, System.Globalization.NumberStyles.AllowDecimalPoint);
-		} else if (val == 1) {
-			rawBill [1, 0] = laborCosts; //(float)double.Parse (laborInput.text, System.Globalization.NumberStyles.AllowDecimalPoint);
-		} else if (val == 2) {
-			rawBill [2, 0] = materialCosts; //(float)double.Parse (materialInput.text, System.Globalization.NumberStyles.AllowDecimalPoint);
-		}
+		rawBill [0, 0] = eCost;
+		rawBill [1, 0] = lCost;
+		rawBill [2, 0] = mCost;
+		enterTheMatrix ();
+		print (mInv);
 	}
 
 	public void enterTheMatrix(){
+		
 		mInv = testM * rawBill;
+
 	}
 }
