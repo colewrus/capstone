@@ -16,7 +16,7 @@ public class unitTest_1 : MonoBehaviour {
 	public matrixClass[] identityMatrix;
 	public Matrix4x4 testM;
 
-	Matrix4x4 mInv;
+	public Matrix4x4 mInv;
 	public Matrix4x4 rawBill;
 	//List <float> rawBill = new List<float>(); //raw cost for the bill of goods 
 

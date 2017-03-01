@@ -8,7 +8,8 @@ public class unit2_GM : MonoBehaviour {
 	public static unit2_GM instance = null;
 
 	public GameObject _calculator;
-	public List<GameObject> billObj = new List<GameObject> ();
+	public List<GameObject> billObj = new List<GameObject> (); //bill of products as Gameobjects
+	public List<productClass> productClass_Bill = new List<productClass>();
 	public List<GameObject> laborerList = new List<GameObject>();
 	public Button button_Materials;
 	public Button button_Energy;
@@ -60,16 +61,18 @@ public class unit2_GM : MonoBehaviour {
 				float tmpMaterials = tmpObj.GetComponent<productScript> ().materialCost;
 
 
-				if (tmpEnergy > 0 || tmpMaterials > 0) {	//make sure work needs doing					
-					if(avail_Energy > laborerList[i].GetComponent<laborScript>().energyWork){
+				if (tmpEnergy > 0) {	//make sure work needs doing					
+					if (avail_Energy > laborerList [i].GetComponent<laborScript> ().energyWork) {
 						avail_Energy -= laborerList [i].GetComponent<laborScript> ().energyWork; //remove cost from the pool
 						tmpObj.GetComponent<productScript> ().energyCost -= laborerList [i].GetComponent<laborScript> ().energyWork; //Reduce the remaining cost on the product
 					}
-					if(avail_Materials > laborerList[i].GetComponent<laborScript>().materialWork){
+				} 
+				if (tmpMaterials > 0) {
+					if (avail_Materials > laborerList [i].GetComponent<laborScript> ().materialWork) {
 						avail_Materials -= laborerList [i].GetComponent<laborScript> ().materialWork; //remove cost from the pool
 						tmpObj.GetComponent<productScript> ().materialCost -= laborerList [i].GetComponent<laborScript> ().materialWork; //Reduce the remaining cost on the product			
 					}
-				} else {
+				}else if (tmpEnergy <= 0 && tmpMaterials <= 0){
 					billObj.Remove (laborerList [i].GetComponent<laborScript> ().currentProduct); //remove the product from the bill
 					laborerList [i].GetComponent<laborScript> ().currentProduct = null; //remove the product from the laborer
 				}
@@ -102,7 +105,6 @@ public class unit2_GM : MonoBehaviour {
 		//first assign the laborer costs
 		for(int i = 0; i < billObj.Count; i++){
 
-
 			float T1 = (billObj [i].GetComponent<productScript> ().materialCost / laborer_MaterialScore) - (billObj [i].GetComponent<productScript> ().energyCost / laborer_EnergyScore);
 				//if positive then material labor costs is higher and will calculate product's total labor cost. 
 
@@ -134,7 +136,7 @@ public class unit2_GM : MonoBehaviour {
 			totalCost_Material += billObj [i].GetComponent<productScript> ().materialCost;
 
 			//go through the products, divide by the materialScore assign the laborer score. 
-				//calculate total cost using the collective costs of the objects, plug into the calculator, for each object to return the value
+			//calculate total cost using the collective costs of the objects, plug into the calculator, for each object to return the value
 		}
 	}
 
