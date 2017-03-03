@@ -37,7 +37,7 @@ public class uiManager : MonoBehaviour {
 		for (int i = 0; i < unit2_GM.instance.laborerList.Count; i++) {
 			unit2_GM.instance.laborerList [i].GetComponent<laborScript> ().current_Bill = unit2_GM.instance.productClass_Bill [0];
 		}
-		print (unit2_GM.instance.productClass_Bill[0].energyCost);
+		//print ("Energy: " + unit2_GM.instance.totalCost_Energy + " Labor: " + unit2_GM.instance.totalCost_Labor + " Material: " + unit2_GM.instance.totalCost_Material);
 	}
 
 }

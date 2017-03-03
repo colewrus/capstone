@@ -91,6 +91,5 @@ public class calculatorScript : MonoBehaviour {
 	public void enterTheMatrix(){
 		
 		mInv = testM * rawBill;
-
 	}
 }
