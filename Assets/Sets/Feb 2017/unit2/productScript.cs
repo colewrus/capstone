@@ -15,7 +15,6 @@ public class productScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		currentLaborCount = 0;
-
 	}	
 
 	void OnMouseOver(){

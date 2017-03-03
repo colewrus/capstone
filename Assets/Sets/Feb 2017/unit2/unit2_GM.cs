@@ -15,8 +15,10 @@ public class unit2_GM : MonoBehaviour {
 	public Button button_Energy;
 	public float avail_Materials;
 	public float avail_Energy;
+	public float max_Materials;
 	public float click_EnergyAdd;
 	public float click_MaterialAdd;
+	public float max_Energy;
 
 	public float laborer_MaterialScore;
 	public float laborer_EnergyScore;
@@ -54,8 +56,8 @@ public class unit2_GM : MonoBehaviour {
 
 
 	void Tick(){
-		button_Materials.GetComponentInChildren<Text> ().text = "Materials: " + avail_Materials;
-		button_Energy.GetComponentInChildren<Text> ().text = "Energy: " + avail_Energy;
+		button_Materials.GetComponentInChildren<Text> ().text = "Materials:\n" + avail_Materials + " / " + max_Materials;
+		button_Energy.GetComponentInChildren<Text> ().text = "Energy:\n" + avail_Energy + " / " + max_Energy;
 
 		//_calculator.GetComponent<calculatorScript> ().enterTheMatrix ();
 
@@ -92,23 +94,6 @@ public class unit2_GM : MonoBehaviour {
 						}
 					}
 				}
-
-
-				//-------!--------
-
-				//GameObject tmpObj = laborerList [i].GetComponent<laborScript> ().currentProduct;//temporary strore the current product
-				/*float tmpEnergy = tmpObj.GetComponent<productScript> ().energyCost;
-	
-
-			} else if(laborerList[i].GetComponent<laborScript>().currentProduct == null) {	//laborer doesn't have an object			
-				for (int j = 0; j < billObj.Count; j++) { //go through the list of objects
-					if (billObj [j].GetComponent<productScript> ().currentLaborCount < billObj [j].GetComponent<productScript> ().laborerMax) {//does next object have space for another worker?
-						if (laborerList [i].GetComponent<laborScript> ().currentProduct == null) {//next laborer with an open slot
-							laborerList [i].GetComponent<laborScript> ().currentProduct = billObj [i]; //set the product for the laborer
-							billObj [i].GetComponent<productScript> ().currentLaborCount++; //add to the product's laborer count
-						}
-					}
-				}*/
 			}//----End of else if
 		}//----End of initial for loop
 
