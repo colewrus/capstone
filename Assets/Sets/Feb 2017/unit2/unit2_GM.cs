@@ -62,8 +62,19 @@ public class unit2_GM : MonoBehaviour {
 		//_calculator.GetComponent<calculatorScript> ().enterTheMatrix ();
 
 		for (int i = 0; i < laborerList.Count; i++) {
-			//print ("labor list");
-			if (laborerList [i].GetComponent<laborScript> ().current_Bill != null) {
+			if (laborerList [i].GetComponent<laborScript> ().assignedBill == false) {
+
+				for (int j = 0; j < productClass_Bill.Count; j++) {
+					if (productClass_Bill [j].currentLaborCount < productClass_Bill [j].laborerMax) {
+						
+						laborerList [i].GetComponent<laborScript> ().current_Bill = productClass_Bill [j];
+						productClass_Bill [j].currentLaborCount++;
+						laborerList [i].GetComponent<laborScript> ().assignedBill = true;
+						break;
+					}
+				}
+			}
+			if (laborerList [i].GetComponent<laborScript> ().assignedBill) {
 				//grab the productClass object in 
 				productClass tmpProd = laborerList[i].GetComponent<laborScript>().current_Bill;
 				print (laborerList [i].name);
@@ -82,18 +93,15 @@ public class unit2_GM : MonoBehaviour {
 					if (avail_Materials > laborerList [i].GetComponent<laborScript> ().materialWork) {
 						avail_Materials -= laborerList [i].GetComponent<laborScript> ().materialWork;
 						tmpProd.materialCost -= laborerList [i].GetComponent<laborScript> ().materialWork;
-					} else if (tmpEnergy <= 0 && tmpMaterials <= 0) {
-						productClass_Bill.Remove (laborerList [i].GetComponent<laborScript> ().current_Bill);
-						laborerList [i].GetComponent<laborScript> ().current_Bill = null;
-					}
-				} else if (laborerList [i].GetComponent<laborScript> ().current_Bill == null) {
-					for (int j = 0; j < productClass_Bill.Count; j++) {
-						if (productClass_Bill [j].currentLaborCount < productClass_Bill [j].laborerMax) {
-							laborerList [i].GetComponent<laborScript> ().current_Bill = productClass_Bill [j];
-							productClass_Bill [j].currentLaborCount++;
-						}
-					}
+					} 
 				}
+				if (tmpEnergy <= 0 && tmpMaterials <= 0) {
+					productClass_Bill.Remove (laborerList [i].GetComponent<laborScript> ().current_Bill);
+					laborerList [i].GetComponent<laborScript> ().current_Bill = null;
+					laborerList [i].GetComponent<laborScript> ().assignedBill = false;
+				}
+
+
 			}//----End of else if
 		}//----End of initial for loop
 

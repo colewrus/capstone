@@ -11,7 +11,7 @@ public class productClass {
 	public int laborerMax;
 	public int currentLaborCount;
 	bool initialized;
-	string name;
+	public string name;
 	Sprite sprite_Working;
 	Sprite sprite_Finished;
 

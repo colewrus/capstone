@@ -46,9 +46,7 @@ public class uiManager : MonoBehaviour {
 	public void AddGeneric(){
 		unit2_GM.instance.productClass_Bill.Add(new productClass(20*coefficients_ELM[0], 50*coefficients_ELM[1], 1*coefficients_ELM[2], 2, 0, "chair"));
 		//productClassList.Add(new productClass(10, 20, 5, 2, 1));
-		for (int i = 0; i < unit2_GM.instance.laborerList.Count; i++) {
-			unit2_GM.instance.laborerList [i].GetComponent<laborScript> ().current_Bill = unit2_GM.instance.productClass_Bill [0];
-		}
+		
 		text_ELM_Cost.text = "Energy: " + Mathf.FloorToInt(list_ELM_Bill_View[0]) + "\nLabor: " + Mathf.FloorToInt(list_ELM_Bill_View[1]) + "\nMaterial: " + Mathf.FloorToInt(list_ELM_Bill_View[2]);
 		//print ("Energy: " + unit2_GM.instance.totalCost_Energy + " Labor: " + unit2_GM.instance.totalCost_Labor + " Material: " + unit2_GM.instance.totalCost_Material);
 	}
