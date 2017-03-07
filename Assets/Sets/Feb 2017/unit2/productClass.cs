@@ -14,6 +14,8 @@ public class productClass {
 	public string name;
 	Sprite sprite_Working;
 	Sprite sprite_Finished;
+	public GameObject product_GameObject;
+
 
 
 	public productClass(float eCost, float mCost, float lCost, int lCount, int lCurrent, string n){

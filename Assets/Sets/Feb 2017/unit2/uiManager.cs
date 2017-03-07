@@ -36,6 +36,7 @@ public class uiManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		panel_productCost.SetActive (false);	
+		panel_Bill.SetActive (true); //bring up the bill of goods panel
 	}
 
 
@@ -44,7 +45,7 @@ public class uiManager : MonoBehaviour {
 	}
 
 	public void AddGeneric(){
-		unit2_GM.instance.productClass_Bill.Add(new productClass(20*coefficients_ELM[0], 50*coefficients_ELM[1], 1*coefficients_ELM[2], 2, 0, "chair"));
+		unit2_GM.instance.productClass_Bill.Add(new productClass(20*coefficients_ELM[0], 50*coefficients_ELM[1], 1*coefficients_ELM[2], 1, 0, "chair"));
 		//productClassList.Add(new productClass(10, 20, 5, 2, 1));
 		
 		text_ELM_Cost.text = "Energy: " + Mathf.FloorToInt(list_ELM_Bill_View[0]) + "\nLabor: " + Mathf.FloorToInt(list_ELM_Bill_View[1]) + "\nMaterial: " + Mathf.FloorToInt(list_ELM_Bill_View[2]);
