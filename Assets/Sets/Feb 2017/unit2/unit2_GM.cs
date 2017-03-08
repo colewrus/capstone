@@ -7,6 +7,9 @@ public class unit2_GM : MonoBehaviour {
 
 	public static unit2_GM instance = null;
 
+	public GameObject workStation;
+	public List<GameObject> workstationList = new List<GameObject>();
+
 	public GameObject _calculator;
 	public List<GameObject> billObj = new List<GameObject> (); //bill of products as Gameobjects
 	public List<productClass> productClass_Bill = new List<productClass>();
@@ -37,7 +40,18 @@ public class unit2_GM : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		//Assign_Total_Cost ();
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
+				workstationList.Add ((GameObject)Instantiate (workStation, new Vector3 (i * 4, j * 4, 0), Quaternion.identity));
+			}
+		}
+		for (int i = 0; i < workstationList.Count; i++) {
+			workstationList [i].SetActive (false);
+		}
+
+		for (int i = 0; i < laborerList.Count; i++) {
+			workstationList [i].SetActive (true);
+		}
 
 	}
 	

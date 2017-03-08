@@ -8,7 +8,7 @@ public class uiManager : MonoBehaviour {
 
 	public GameObject panel_productCost;
 	public GameObject panel_Bill;
-
+	public GameObject panel_Hire_Fire;
 	public Vector3 tmpVec; //how much to offest the product remaining cost panel
 
 	public Text text_ELM_Cost;
@@ -37,6 +37,7 @@ public class uiManager : MonoBehaviour {
 	void Start () {
 		panel_productCost.SetActive (false);	
 		panel_Bill.SetActive (true); //bring up the bill of goods panel
+		panel_Hire_Fire.SetActive(false);
 	}
 
 
@@ -60,7 +61,7 @@ public class uiManager : MonoBehaviour {
 		panel_Bill.SetActive (false);
 	}
 
-	public void EditBill(){
+	public void EditBill(){ //reopens the bill panel
 		unit2_GM.instance.stopTick ();
 		panel_Bill.SetActive (true);
 	}
@@ -70,6 +71,30 @@ public class uiManager : MonoBehaviour {
 		list_ELM_Bill_View [1] = 0;
 		list_ELM_Bill_View [2] = 0;
 		text_ELM_Cost.text = "Energy: " + Mathf.FloorToInt(list_ELM_Bill_View[0]) + "\nLabor: " + Mathf.FloorToInt(list_ELM_Bill_View[1]) + "\nMaterial: " + Mathf.FloorToInt(list_ELM_Bill_View[2]);
+	}
+
+
+	public void FireWorker(){
+		unit2_GM.instance.stopTick ();
+		panel_Hire_Fire.SetActive (true);
+		panel_Hire_Fire.GetComponentInChildren<Button> ().GetComponentInChildren<Text> ().text = "fire";
+		GameObject temp = panel_Hire_Fire.transform.GetChild (1).gameObject;
+		GameObject tempText = panel_Hire_Fire.transform.GetChild (2).gameObject;
+		tempText.gameObject.GetComponent<Text>().text = unit2_GM.instance.laborerList [unit2_GM.instance.laborerList.Count - 1].gameObject.GetComponent<laborScript> ().fireText;
+		temp.GetComponent<Image> ().sprite = unit2_GM.instance.laborerList [unit2_GM.instance.laborerList.Count-1].gameObject.GetComponent<SpriteRenderer> ().sprite;
+	}
+
+	public void HireWorker(){
+		unit2_GM.instance.stopTick ();
+		panel_Hire_Fire.SetActive (true);
+		panel_Hire_Fire.GetComponentInChildren<Button> ().GetComponentInChildren<Text> ().text = "hire";
+	
+	
+	}
+
+	public void Close_Hire_Fire_Panel(){
+		panel_Hire_Fire.SetActive (false);
+		unit2_GM.instance.startTick ();
 	}
 
 	/*

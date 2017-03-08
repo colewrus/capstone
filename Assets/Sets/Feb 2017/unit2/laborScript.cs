@@ -8,6 +8,9 @@ public class laborScript : MonoBehaviour {
 	public float energyWork;
 	public float materialWork;
 	public bool assignedBill;
+	public string name;
+	public string fireText;
+	public string hireText;
 
 	// Use this for initialization
 	void Start () {
