@@ -11,6 +11,8 @@ public class uiManager : MonoBehaviour {
 	public GameObject panel_Hire_Fire;
 	public Vector3 tmpVec; //how much to offest the product remaining cost panel
 
+	public Text employee_Current_Max;
+
 	public Text text_ELM_Cost;
 	public Text text_Products_Count;
 	public Text text_Expected_Revenue;
@@ -38,6 +40,7 @@ public class uiManager : MonoBehaviour {
 		panel_productCost.SetActive (false);	
 		panel_Bill.SetActive (true); //bring up the bill of goods panel
 		panel_Hire_Fire.SetActive(false);
+		employee_Current_Max.text = unit2_GM.instance.laborerList.Count + " / max";
 	}
 
 
@@ -82,6 +85,16 @@ public class uiManager : MonoBehaviour {
 		GameObject tempText = panel_Hire_Fire.transform.GetChild (2).gameObject;
 		tempText.gameObject.GetComponent<Text>().text = unit2_GM.instance.laborerList [unit2_GM.instance.laborerList.Count - 1].gameObject.GetComponent<laborScript> ().fireText;
 		temp.GetComponent<Image> ().sprite = unit2_GM.instance.laborerList [unit2_GM.instance.laborerList.Count-1].gameObject.GetComponent<SpriteRenderer> ().sprite;
+	}
+
+	public void FireWorker_Submit(bool fire){
+		if (fire) {
+			Destroy (unit2_GM.instance.laborerList [unit2_GM.instance.laborerList.Count - 1]);
+			unit2_GM.instance.laborerList.Remove(unit2_GM.instance.laborerList[unit2_GM.instance.laborerList.Count-1]);
+			unit2_GM.instance.ResetWorkStation ();
+		}
+
+		employee_Current_Max.text = unit2_GM.instance.laborerList.Count + " / max"; //reset the employee cunt Text
 	}
 
 	public void HireWorker(){

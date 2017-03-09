@@ -10,9 +10,13 @@ public class unit2_GM : MonoBehaviour {
 	public GameObject workStation;
 	public List<GameObject> workstationList = new List<GameObject>();
 
+
+
 	public GameObject _calculator;
 	public List<GameObject> billObj = new List<GameObject> (); //bill of products as Gameobjects
 	public List<productClass> productClass_Bill = new List<productClass>();
+
+	public GameObject employee;
 	public List<GameObject> laborerList = new List<GameObject>();
 	public Button button_Materials;
 	public Button button_Energy;
@@ -40,7 +44,9 @@ public class unit2_GM : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		for (int i = 0; i < 3; i++) {
+		print (transform.up);
+		//setup the work stations
+		for (int i = 0; i < 5; i++) {
 			for (int j = 0; j < 3; j++) {
 				workstationList.Add ((GameObject)Instantiate (workStation, new Vector3 (i * 4, j * 4, 0), Quaternion.identity));
 			}
@@ -53,8 +59,24 @@ public class unit2_GM : MonoBehaviour {
 			workstationList [i].SetActive (true);
 		}
 
+		//setup the employees
+		for (int i = 0; i < laborerList.Count; i++) {
+			laborerList[i] = (GameObject)Instantiate (employee, workstationList [i].transform.position + (transform.up * 1.5f), Quaternion.identity);
+		}	
+
 	}
-	
+
+
+	public void ResetWorkStation(){
+
+		for (int i = 0; i < workstationList.Count; i++) {
+			workstationList [i].SetActive (false);
+		}
+		for (int i = 0; i < laborerList.Count; i++) {
+			print ("ran");
+			workstationList [i].SetActive (true);
+		}
+	}
 	// Update is called once per frame
 	void Update () {
 		
@@ -95,10 +117,9 @@ public class unit2_GM : MonoBehaviour {
 				float tmpEnergy = tmpProd.energyCost;
 				float tmpMaterials = tmpProd.materialCost;
 				print (tmpProd.energyCost);
-
+				laborerList [i].GetComponent<Animator> ().Play ("bob_work");
 				if (tmpEnergy > 0) {
-					if (avail_Energy > laborerList [i].GetComponent<laborScript> ().energyWork) {
-						
+					if (avail_Energy > laborerList [i].GetComponent<laborScript> ().energyWork) {						
 						avail_Energy -= laborerList [i].GetComponent<laborScript> ().energyWork;
 						tmpProd.energyCost -= laborerList [i].GetComponent<laborScript> ().energyWork;
 					}
@@ -107,12 +128,17 @@ public class unit2_GM : MonoBehaviour {
 					if (avail_Materials > laborerList [i].GetComponent<laborScript> ().materialWork) {
 						avail_Materials -= laborerList [i].GetComponent<laborScript> ().materialWork;
 						tmpProd.materialCost -= laborerList [i].GetComponent<laborScript> ().materialWork;
+
 					} 
 				}
+				//play the work animation
+
 				if (tmpEnergy <= 0 && tmpMaterials <= 0) {
 					productClass_Bill.Remove (laborerList [i].GetComponent<laborScript> ().current_Bill);
 					laborerList [i].GetComponent<laborScript> ().current_Bill = null;
 					laborerList [i].GetComponent<laborScript> ().assignedBill = false;
+					laborerList [i].GetComponent<Animator> ().Stop ();
+					//stop the work animation
 				}
 
 
