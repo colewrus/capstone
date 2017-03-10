@@ -12,23 +12,31 @@ public class productClass {
 	public int currentLaborCount;
 	bool initialized;
 	public string name;
-	Sprite sprite_Working;
+	public Sprite sprite_Working;
 	Sprite sprite_Finished;
 	public GameObject product_GameObject;
+	public float salePrice;
+	public float progressPerTick;
 
 
 
-	public productClass(float eCost, float mCost, float lCost, int lCount, int lCurrent, string n){
+	public productClass(float eCost, float mCost, float lCost, int lCount, int lCurrent, string n, Sprite workIcon, float sale){
 		name = n;
 		energyCost = eCost;
 		materialCost = mCost;
+		salePrice = sale;
 		float labor_difference = (materialCost / unit2_GM.instance.laborer_MaterialScore) - (energyCost / unit2_GM.instance.laborer_EnergyScore);
 		if (labor_difference > 0) {
 			laborCost = (materialCost / unit2_GM.instance.laborer_MaterialScore);
+			//progressPerTick = (materialCost / unit2_GM.instance.laborer_MaterialScore);
+
+
 		} else if (labor_difference < 0) {
 			laborCost = (energyCost / unit2_GM.instance.laborer_EnergyScore);
-		}
 
+
+		}
+		sprite_Working = workIcon;
 		unit2_GM.instance._calculator.GetComponent<calculatorScript>()._Calculator_GM(energyCost, laborCost, materialCost);
 
 		//set the newly calculated costs
@@ -47,7 +55,8 @@ public class productClass {
 
 		laborerMax = lCount;
 		currentLaborCount = lCurrent;
-		initialized = true;
+		initialized = true;	
+		progressPerTick = 100 / energyCost;
 	}
 
 

@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 38aa05917b8693248a2f30bc6d98f7ae
-timeCreated: 1489122890
+timeCreated: 1489159470
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -12,6 +12,7 @@ TextureImporter:
     21300010: icons_5
     21300012: icons_6
     21300014: icons_7
+    21300016: icons_8
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -65,7 +66,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 1395
+        y: 2077
         width: 1013
         height: 998
       alignment: 0
@@ -77,8 +78,8 @@ TextureImporter:
       name: icons_1
       rect:
         serializedVersion: 2
-        x: 1042
-        y: 1395
+        x: 1038
+        y: 2077
         width: 1026
         height: 998
       alignment: 0
@@ -91,7 +92,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 2099
-        y: 1393
+        y: 2075
         width: 1026
         height: 1000
       alignment: 0
@@ -103,8 +104,8 @@ TextureImporter:
       name: icons_3
       rect:
         serializedVersion: 2
-        x: 3154
-        y: 1395
+        x: 3138
+        y: 2077
         width: 1012
         height: 998
       alignment: 0
@@ -116,8 +117,8 @@ TextureImporter:
       name: icons_4
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
+        x: 237
+        y: 1011
         width: 1010
         height: 996
       alignment: 0
@@ -129,8 +130,8 @@ TextureImporter:
       name: icons_5
       rect:
         serializedVersion: 2
-        x: 1037
-        y: 0
+        x: 1278
+        y: 1007
         width: 1029
         height: 996
       alignment: 0
@@ -142,8 +143,8 @@ TextureImporter:
       name: icons_6
       rect:
         serializedVersion: 2
-        x: 2092
-        y: 0
+        x: 2349
+        y: 995
         width: 1028
         height: 996
       alignment: 0
@@ -155,10 +156,23 @@ TextureImporter:
       name: icons_7
       rect:
         serializedVersion: 2
-        x: 3156
-        y: 0
+        x: 3496
+        y: 991
         width: 1010
         height: 996
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: icons_8
+      rect:
+        serializedVersion: 2
+        x: 1787
+        y: 1
+        width: 1008
+        height: 994
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
