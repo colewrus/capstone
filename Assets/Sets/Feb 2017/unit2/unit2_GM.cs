@@ -10,7 +10,7 @@ public class unit2_GM : MonoBehaviour {
 	public GameObject workStation;
 	public List<GameObject> workstationList = new List<GameObject>();
 
-
+	public productClass[] master_class;
 
 	public GameObject _calculator;
 	public List<GameObject> billObj = new List<GameObject> (); //bill of products as Gameobjects
