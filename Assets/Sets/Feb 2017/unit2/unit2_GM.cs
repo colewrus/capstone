@@ -77,7 +77,7 @@ public class unit2_GM : MonoBehaviour {
 			laborerList[i] = (GameObject)Instantiate (employee, workstationList [i].transform.position + (transform.up * 1.5f), Quaternion.identity);
 
 			iconList.Add ((GameObject)Instantiate (icon, transform.position, Quaternion.identity));
-			Vector3 tmpIconVec = Camera.main.WorldToScreenPoint (laborerList [i].transform.position + (transform.up * -1.15f));
+			Vector3 tmpIconVec = Camera.main.WorldToScreenPoint (laborerList [i].transform.position + (transform.up * -1.25f));
 			iconList[i].transform.SetParent((GameObject.Find("Canvas").transform));
 			iconList[i].transform.position = tmpIconVec;		
 			iconList [i].transform.SetAsFirstSibling ();
@@ -98,7 +98,10 @@ public class unit2_GM : MonoBehaviour {
 	}
 	// Update is called once per frame
 	void Update () {
-		
+		if (Input.GetKeyDown (KeyCode.Space)) {
+			_calculator.GetComponent<calculatorScript> ()._Calculator_GM (20, 5, 50);
+
+		}
 	}
 
 	public void startTick(){

@@ -37,6 +37,7 @@ public class uiManager : MonoBehaviour {
 
 	public List<float> coefficients_ELM = new List<float>(); //list of the multipliers for the product costs Energy-Labor-Material order
 
+
 	void Awake(){
 		if (instance == null)
 			instance = this;
@@ -53,6 +54,7 @@ public class uiManager : MonoBehaviour {
 		employee_Current_Max.text = unit2_GM.instance.laborerList.Count + " / max";
 		chairX = 0;
 		tableX = 0;
+
 	}
 
 
@@ -64,14 +66,28 @@ public class uiManager : MonoBehaviour {
 		float eCost = unit2_GM.instance.master_class [0].energyCost;
 		float lCost = unit2_GM.instance.master_class [0].laborCost;
 		float mCost = unit2_GM.instance.master_class [0].materialCost;
+
+
+
+		unit2_GM.instance._calculator.GetComponent<calculatorScript> ()._Calculator_GM (eCost, lCost, mCost);
+		eCost = unit2_GM.instance._calculator.GetComponent<calculatorScript> ().mInv [0, 0];
+		lCost = unit2_GM.instance._calculator.GetComponent<calculatorScript> ().mInv [1, 0];
+		mCost = unit2_GM.instance._calculator.GetComponent<calculatorScript> ().mInv [2, 0];
+		print (eCost + " : " + lCost + " : " + mCost);
+
+
 		int lMax = unit2_GM.instance.master_class [0].laborerMax;
 		string name = unit2_GM.instance.master_class [0].name;
 		Sprite tSprite = unit2_GM.instance.master_class [0].sprite_Working;
 		float sale = unit2_GM.instance.master_class [0].salePrice;
 			
-		unit2_GM.instance.productClass_Bill.Add(new productClass(eCost*coefficients_ELM[0], mCost*coefficients_ELM[1], lCost*coefficients_ELM[2], lMax, 0, name, tSprite, sale));
+		unit2_GM.instance.productClass_Bill.Add(new productClass(eCost, lCost, mCost, lMax, 0, name, tSprite, sale));
 		//productClassList.Add(new productClass(10, 20, 5, 2, 1));
 		chairX++;
+		list_ELM_Bill_View [0] += eCost;
+		list_ELM_Bill_View [1] += lCost;
+		list_ELM_Bill_View [2] += mCost;
+
 		text_ELM_Cost.text = "Energy Cost:\n" + Mathf.FloorToInt(list_ELM_Bill_View[0]) + "\nLabor Cost:\n" + Mathf.FloorToInt(list_ELM_Bill_View[1]) + "\nMaterial Cost:\n" + Mathf.FloorToInt(list_ELM_Bill_View[2]);
 		if (chairX == 0) {
 			text_Products_Count.text += name + ": x" + chairX + "\n";

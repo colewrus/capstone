@@ -86,10 +86,12 @@ public class calculatorScript : MonoBehaviour {
 		rawBill [2, 0] = mCost;
 		enterTheMatrix ();
 
+
 	}
 
 	public void enterTheMatrix(){
 		
 		mInv = testM * rawBill;
+
 	}
 }
