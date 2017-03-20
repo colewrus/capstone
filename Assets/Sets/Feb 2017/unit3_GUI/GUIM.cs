@@ -29,14 +29,14 @@ public class GUIM : MonoBehaviour {
 
 		if (infoPanel.activeSelf == true) {
 			if (EventSystem.current.currentSelectedGameObject == nameHold) {
-				print (nameHold + " : " + EventSystem.current.currentSelectedGameObject);
-				Invoke ("Same_Button_Close", 0.4f);
+				
+				Invoke ("Same_Button_Close", 0.5f);
 				nameHold = null;
 			} else {
-				Invoke ("ReOpen", 0.31f);
+				Invoke ("ReOpen", 0.5f);
 				nameHold = EventSystem.current.currentSelectedGameObject.gameObject;
 			}
-			print (Camera.main.transform.position);
+
 
 		} 
 
