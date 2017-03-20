@@ -53,6 +53,14 @@
      <Compile Include="Assets\Sets\Feb 2017\unit2\productScript.cs" />
      <Compile Include="Assets\Sets\Feb 2017\unit2\uiManager.cs" />
      <Compile Include="Assets\Sets\Feb 2017\unit2\unit2_GM.cs" />
+     <Compile Include="Assets\Sets\Feb 2017\unit3_GUI\GUIM.cs" />
+     <Compile Include="Assets\Sets\Feb 2017\unit3_GUI\laborer_script.cs" />
+     <Compile Include="Assets\UIController\Examples\CSS\Square.cs" />
+     <Compile Include="Assets\UIController\Examples\Popups\Scripts\UIControllerExample.cs" />
+     <Compile Include="Assets\UIController\Examples\Popups\Scripts\UIControllerExample8.cs" />
+     <Compile Include="Assets\UIController\Scripts\UIController.cs" />
+     <Compile Include="Assets\UIController\Scripts\UIControllerStateMachine.cs" />
+     <None Include="Assets\UIController\README.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>E:/Program Files (x86)/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

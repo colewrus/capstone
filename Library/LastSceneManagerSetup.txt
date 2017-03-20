@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Sets/Feb 2017/unit2/unit_Test_s2.unity
+- path: Assets/tabs.unity
   isLoaded: 1
   isActive: 1
