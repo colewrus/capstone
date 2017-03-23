@@ -36,7 +36,7 @@ public class GUIM : MonoBehaviour {
 				Invoke ("Same_Button_Close", 0.5f);
 				nameHold = null;
 			} else {
-				Invoke ("ReOpen", 0.5f);
+				Invoke ("ReOpen", 0.35f);
 				nameHold = EventSystem.current.currentSelectedGameObject.gameObject;
 			}
 
