@@ -71,8 +71,10 @@ public class tutorial : MonoBehaviour {
 		tmpSprite.sprite = employeeList [ListPos].GetComponent<laborer_script> ().characterSprite;
 		tmp.gameObject.name = employeeList [ListPos].GetComponent<laborer_script> ().name;
 		employee_ActiveList.Add (tmp);
+		InvokeRepeating ("Bob_Tick", 1, 1);
 		GameObject.Find ("img_Employee").SetActive (false);
 		GameObject.Find ("button_Hire").GetComponent<Button> ().interactable = false;
+		GUIM.instance.infoPanel.GetComponent<UIController> ().Hide ();
 
 	}
 
@@ -90,11 +92,17 @@ public class tutorial : MonoBehaviour {
 			if (Input.GetMouseButtonDown (0)) {
 				tutorial_Stage [0] = true;
 				tut_Audio.PlayOneShot (VO [0], 0.8f);
+				Invoke ("Play_Invoke", VO [0].length + 1);
 			}
 		} else {
 			tutorial_Stage [0] = true;
-			tut_Audio.PlayOneShot (VO [0], 0.8f); //actually play VO[1]
+			tut_Audio.PlayOneShot (VO [1], 0.8f); //actually play VO[1]
 		}
+
+	}
+
+	void Play_Invoke(){
+		tut_Audio.PlayOneShot (VO [1], 0.8f);
 	}
 
 	void Step_1(){
@@ -104,24 +112,44 @@ public class tutorial : MonoBehaviour {
 		GUIM.instance.button_Obj [0].SetActive (true);
 		GUIM.instance.button_Obj [1].SetActive (true);
 		GUIM.instance.button_Obj [1].GetComponentInChildren<Text> ().text = "$" + currentCash;
-		tut_Audio.PlayOneShot (VO [0], 0.8f); //VO[2]
-		Invoke("NameCompany", VO[0].length);//VO[3]
+		tut_Audio.PlayOneShot (VO [2], 0.8f); //VO[2]
+		Invoke("NameCompany", VO[2].length);//VO[2]
 	}
 
 	void Step_2(){
 		float tmpTimer = 0;
 		Camera.main.orthographicSize = 4;
 		tmpTimer += Time.deltaTime;
-		tut_Audio.PlayOneShot (VO [0], 0.8f);//VO[4]
+		tut_Audio.PlayOneShot (VO [4], 0.8f);//VO[4]
 		GUIM.instance.button_Obj[4].SetActive(true); //employee button
 		//GUIM.instance.infoPanel.SetActive(true);
 		camStart = false;
-
 		GUIM.instance.infoPanel.GetComponent<UIController>().Show();
 		GUIM.instance.buttons_info [3].SetActive (true);
 		icon.GetComponent<tutorial_Product> ().Scale (new Vector3 (1, 1, 1));
 		icon.transform.position = Camera.main.WorldToScreenPoint (table.transform.position + (transform.up * 0.5f));
+
+		ResetIcon ();
+		if (employee_ActiveList != null) {
+			InvokeRepeating ("Bob_Tick", 1, 1);
+		}
 	}
+
+	void Step_3(){
+		icon.GetComponent<Image> ().sprite = iconList [1];
+	}
+
+	public void Bill_First(){
+		
+	}
+
+	void Bob_Tick(){
+		print ("tick");
+		icon.GetComponent<tutorial_Product> ().Employee_Work ();
+		employee_ActiveList [0].GetComponent<Animator> ().Play ("bob_work");
+	}
+
+
 
 
 	void ResetIcon(){
@@ -135,7 +163,7 @@ public class tutorial : MonoBehaviour {
 			panel_CompanyName.SetActive (false);
 			ResetIcon ();
 			icon.SetActive (true);
-			tut_Audio.PlayOneShot (VO [0], 0.8f);//VO[3]
+			tut_Audio.PlayOneShot (VO [3], 0.8f);//VO[3]
 		}
 	}
 
@@ -155,9 +183,16 @@ public class tutorial : MonoBehaviour {
 		currentCash += 25;
 		if (chair_count == 1) {
 			Step_1 ();
-		} else if (chair_count == 2) {
-			
+		} else if (chair_count == 2) {			
 			Step_2 ();
+		} else if (chair_count == 3) {
+			tut_Audio.PlayOneShot (VO [5], 0.8f);	
+		} else if (chair_count == 4) {
+			tut_Audio.PlayOneShot (VO [6], 0.8f);
+		} else if (chair_count == 5) {
+			tut_Audio.PlayOneShot (VO [7], 0.8f);
+		} else if (chair_count == 6) {
+			tut_Audio.PlayOneShot (VO [9], 0.8f);
 		}
 
 	}
