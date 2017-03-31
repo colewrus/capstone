@@ -15,6 +15,8 @@ public class GUIM : MonoBehaviour {
 	public List<GameObject> button_Obj = new List<GameObject>();
 
 
+
+
 	void Awake(){
 		if (instance == null)
 			instance = this;
@@ -34,9 +36,16 @@ public class GUIM : MonoBehaviour {
 
 	public void Panel_Active_Check(){
 		if (nameHold == null) {
+			//print (tutorial.instance);
 			nameHold = EventSystem.current.currentSelectedGameObject.gameObject;
-			if (!tutorial.instance.camStart) {
-				Camera.main.transform.position = new Vector3 (laborerFocus.transform.position.x - 3, laborerFocus.transform.position.y, Camera.main.transform.position.z);
+
+			if (tutorial.instance == null) {
+				print ("panel active check");
+				Camera.main.transform.position = new Vector3 (laborerFocus.transform.position.x-(laborerFocus.transform.localScale.x/1.2f), laborerFocus.transform.position.y, Camera.main.transform.position.z);
+				//this camera position reset ain't gonna scale pretty...probably
+
+			}else if (!tutorial.instance.camStart) {
+				Camera.main.transform.position = new Vector3 (laborerFocus.transform.position.x - (laborerFocus.transform.localScale.x/1.2f), laborerFocus.transform.position.y, Camera.main.transform.position.z);
 				tutorial.instance.icon.transform.position = Camera.main.WorldToScreenPoint (tutorial.instance.table.transform.position + (transform.up * 0.25f));
 			}
 			button_Manager ();
@@ -60,7 +69,10 @@ public class GUIM : MonoBehaviour {
 	void Same_Button_Close(){
 		infoPanel.GetComponent<UIController> ().Public_Hide ();
 		button_Manager ();
-		if (!tutorial.instance.camStart) {
+		if (tutorial.instance == null) {
+			print ("Check");
+			Camera.main.transform.position = new Vector3 (laborerFocus.transform.position.x, laborerFocus.transform.position.y, Camera.main.transform.position.z);
+		}else if (!tutorial.instance.camStart) {
 			Camera.main.transform.position = new Vector3 (laborerFocus.transform.position.x, laborerFocus.transform.position.y, Camera.main.transform.position.z);
 			tutorial.instance.icon.transform.position = Camera.main.WorldToScreenPoint (tutorial.instance.table.transform.position + (transform.up * 0.25f));
 		}

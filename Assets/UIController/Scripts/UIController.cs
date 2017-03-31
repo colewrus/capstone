@@ -144,7 +144,7 @@ public class UIController : MonoBehaviour {
 		if (!this.isShow) {
 			// this.Show (); // No Callback
 			this.Show (() => {
-				print (this + ": OnShow (Callback)");
+				//print (this + ": OnShow (Callback)");
 			});
 		}
 		else {

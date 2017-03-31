@@ -36,6 +36,7 @@ public class tutorial : MonoBehaviour {
 	public GameObject panel_CompanyName;
 
 	public int chair_count;
+
 	void Awake(){
 		if (instance == null)
 			instance = this;
@@ -75,7 +76,6 @@ public class tutorial : MonoBehaviour {
 		GameObject.Find ("img_Employee").SetActive (false);
 		GameObject.Find ("button_Hire").GetComponent<Button> ().interactable = false;
 		GUIM.instance.infoPanel.GetComponent<UIController> ().Hide ();
-
 	}
 
 

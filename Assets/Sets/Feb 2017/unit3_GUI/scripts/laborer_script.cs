@@ -17,3 +17,4 @@ public class laborer_script : MonoBehaviour{
 
 
 }
+
