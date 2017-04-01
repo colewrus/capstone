@@ -17,6 +17,7 @@ public class employeeList : MonoBehaviour {
 
 	public void Fire_Employee(){
 		//print (this.gameObject.GetComponent<employeeList> ().placeInActiveList);
+		GM_Alpha.instance.CameraManager();
 
 		GameObject tmp = employeeManager.instance.Active_Employees[placeInActiveList];//set a tepmorary variable to hold the employee gameobject associated with this fire buton
 		employeeManager.instance.total_Daily_Cost -= tmp.GetComponent<laborer_script>().wage; //extract from the total wage pool
@@ -29,6 +30,7 @@ public class employeeList : MonoBehaviour {
 		GM_Alpha.instance.Update_Max_Employees(); //update the text for the current/maximum employees
 		print (this.transform.parent.name);
 		Destroy (this.transform.parent.gameObject);
+		Destroy (tmp);
 
 
 		//print (tmp.GetComponent<laborer_script> ().name);

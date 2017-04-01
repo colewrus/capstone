@@ -11,6 +11,12 @@ public class GM_Alpha : MonoBehaviour {
 	public GameObject employee_Listing; //add the actual UI object that holds the info
 
 
+	public float employee_Offset_x;
+	public float employee_Offset_y;
+	public int rowLength; //controls hoe many workers in a row, dynamically changes with a max employee upgrade
+
+		
+
 	GameObject wagesObj;
 	GameObject max_employee_Obj;
 	int ListPos;
@@ -40,9 +46,20 @@ public class GM_Alpha : MonoBehaviour {
 	public void AddEmployee(){
 
 		if(employeeManager.instance.Active_Employees.Count < employeeManager.instance.MaxEmployees){
+			
 			ListPos = employeeManager.instance.Active_Employees.Count;
 			GameObject tmp = (GameObject)Instantiate (employeeManager.instance.Employee_List [ListPos], new Vector3 (0, 1, 1), Quaternion.identity);
+
+			for (int i = 0; i < ListPos; i++) {				
+				for (int n = 0; n < rowLength; n++) {
+					tmp.transform.position = new Vector3 (0 + (employee_Offset_x * i), 1 + (employee_Offset_y * n), 1);
+				}
+			}
 			//figure out placement grid
+
+
+			//change the camera size depending on the 
+
 
 			SpriteRenderer tmpSprite = tmp.GetComponent<SpriteRenderer> ();
 			tmpSprite.sprite = employeeManager.instance.Employee_List [ListPos].GetComponent<laborer_script> ().characterSprite;
@@ -50,7 +67,8 @@ public class GM_Alpha : MonoBehaviour {
 			//laborer_script tmpLS = tmp.AddComponent <laborer_script>() as laborer_script;
 			employeeManager.instance.Active_Employees.Add (tmp);
 			employeeManager.instance.total_Daily_Cost += tmp.GetComponent<laborer_script> ().wage; //add the newest wage to the daily cost
-			; //this gots to go
+
+			//employeeManager.instance.Carousel (); //this guy is causing trouble, problem with not having a new employee to pull the character sprite from
 
 			if (employeeManager.instance.Active_Employees.Count == 1) {
 				employee_Fire_List.SetActive (true);
@@ -60,8 +78,28 @@ public class GM_Alpha : MonoBehaviour {
 			Employee_List_Obj (tmp); //Add this peep to the list
 			Update_Wage_Text ();//update the text
 			Update_Max_Employees();
+			CameraManager();
+			CameraSize ();
+
 		}
 
+	}
+
+
+	public void CameraManager(){
+
+		int counted = employeeManager.instance.Active_Employees.Count;
+
+		if (counted == 1) {
+			GUIM.instance.laborerFocus = employeeManager.instance.Active_Employees [0].transform.position + (transform.forward * -2);
+
+		} else if (counted > 1 && counted < 7) {
+			GUIM.instance.laborerFocus = employeeManager.instance.Active_Employees [1].transform.position + (transform.forward * -2);
+		}
+
+
+		GUIM.instance.Camera_Panel_Reset(1);
+		CameraSize ();
 	}
 
 	void Employee_List_Obj(GameObject eObj){
@@ -77,13 +115,21 @@ public class GM_Alpha : MonoBehaviour {
 
 
 	public void Update_Wage_Text(){		
-		wagesObj.GetComponent<Text>().text = "-$"+employeeManager.instance.total_Daily_Cost;
+		wagesObj.GetComponent<Text>().text = "-$"+employeeManager.instance.total_Daily_Cost + " /day";
 	}
 
 	public void Update_Max_Employees(){
 		max_employee_Obj.GetComponent<Text> ().text = "Max Employees: " + employeeManager.instance.Active_Employees.Count + "/" + employeeManager.instance.MaxEmployees;
 	}
 
+	void CameraSize(){
+		if (employeeManager.instance.Active_Employees.Count == 1) {
+			Camera.main.orthographicSize = 3;
+		}
+		if (employeeManager.instance.Active_Employees.Count == 2) {
+			Camera.main.orthographicSize = 5;
+		}
+	}
 
 
 }

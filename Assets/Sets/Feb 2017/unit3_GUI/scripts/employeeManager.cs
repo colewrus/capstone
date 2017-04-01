@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class employeeManager : MonoBehaviour {
 
@@ -13,6 +14,7 @@ public class employeeManager : MonoBehaviour {
 	public float total_Daily_Cost;
 	public int MaxEmployees;
 
+	public Image hireIcon;
 
 	void Awake(){
 		if (instance == null)
@@ -33,5 +35,9 @@ public class employeeManager : MonoBehaviour {
 	
 	}
 
+
+	public void Carousel(){
+		hireIcon.GetComponent<Image>().sprite = Employee_List [Active_Employees.Count].GetComponent<laborer_script> ().characterSprite;
+	}
 
 }

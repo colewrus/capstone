@@ -11,7 +11,7 @@ public class GUIM : MonoBehaviour {
 	public string[] buttonPos;  //!------------------ Array -------- DEBORAAAHHHHHHHH
 	GameObject nameHold;
 	GameObject infoHold;
-	public GameObject laborerFocus;
+	public Vector3 laborerFocus;
 	public List<GameObject> button_Obj = new List<GameObject>();
 
 
@@ -41,11 +41,14 @@ public class GUIM : MonoBehaviour {
 
 			if (tutorial.instance == null) {
 				print ("panel active check");
-				Camera.main.transform.position = new Vector3 (laborerFocus.transform.position.x-(laborerFocus.transform.localScale.x/1.2f), laborerFocus.transform.position.y, Camera.main.transform.position.z);
-				//this camera position reset ain't gonna scale pretty...probably
+				if (employeeManager.instance.Active_Employees.Count > 0) {
+					Camera_Panel_Reset (1);
+				}
 
 			}else if (!tutorial.instance.camStart) {
-				Camera.main.transform.position = new Vector3 (laborerFocus.transform.position.x - (laborerFocus.transform.localScale.x/1.2f), laborerFocus.transform.position.y, Camera.main.transform.position.z);
+				if (employeeManager.instance.Active_Employees.Count > 0) {
+					Camera_Panel_Reset (1);
+				}
 				tutorial.instance.icon.transform.position = Camera.main.WorldToScreenPoint (tutorial.instance.table.transform.position + (transform.up * 0.25f));
 			}
 			button_Manager ();
@@ -66,14 +69,27 @@ public class GUIM : MonoBehaviour {
 
 	}
 
+	public void Camera_Panel_Reset(int state){
+		if (state == 0) {
+			Camera.main.transform.position = laborerFocus;
+		} else if (state == 1) {
+			Camera.main.transform.position = laborerFocus + (transform.right * -2);
+		}
+		
+	}
+
 	void Same_Button_Close(){
 		infoPanel.GetComponent<UIController> ().Public_Hide ();
 		button_Manager ();
 		if (tutorial.instance == null) {
 			print ("Check");
-			Camera.main.transform.position = new Vector3 (laborerFocus.transform.position.x, laborerFocus.transform.position.y, Camera.main.transform.position.z);
+			if (employeeManager.instance.Active_Employees.Count > 0) {
+				Camera_Panel_Reset (0);
+			}
 		}else if (!tutorial.instance.camStart) {
-			Camera.main.transform.position = new Vector3 (laborerFocus.transform.position.x, laborerFocus.transform.position.y, Camera.main.transform.position.z);
+			if (employeeManager.instance.Active_Employees.Count > 0) {
+				Camera_Panel_Reset (0);
+			}
 			tutorial.instance.icon.transform.position = Camera.main.WorldToScreenPoint (tutorial.instance.table.transform.position + (transform.up * 0.25f));
 		}
 	}
