@@ -14,7 +14,11 @@ public class laborer_script : MonoBehaviour{
 	public int days_Worked;
 	public float wage;
 	public AnimatorController animC;
+	public bool hired;
 
+	void Awake(){
+		hired = false;
+	}
 
 }
 

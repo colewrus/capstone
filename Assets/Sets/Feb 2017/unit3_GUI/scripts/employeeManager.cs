@@ -41,3 +41,8 @@ public class employeeManager : MonoBehaviour {
 	}
 
 }
+
+public class Employee_Class {
+
+
+}

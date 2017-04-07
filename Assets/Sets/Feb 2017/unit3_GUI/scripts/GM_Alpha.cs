@@ -16,7 +16,7 @@ public class GM_Alpha : MonoBehaviour {
 	public float employee_Offset_y;
 	public int rowLength; //controls hoe many workers in a row, dynamically changes with a max employee upgrade
 
-		
+	public Animator hireAnimation;
 
 	GameObject wagesObj;
 	GameObject max_employee_Obj;
@@ -28,8 +28,6 @@ public class GM_Alpha : MonoBehaviour {
 		else if (instance != null)
 			Destroy (gameObject);
 	}
-
-
 
 	// Use this for initialization
 	void Start () {
@@ -44,6 +42,7 @@ public class GM_Alpha : MonoBehaviour {
 		
 	}
 
+
 	public void AddEmployee(){
 
 		if(employeeManager.instance.Active_Employees.Count < employeeManager.instance.MaxEmployees){
@@ -55,11 +54,7 @@ public class GM_Alpha : MonoBehaviour {
 				for (int n = 0; n < rowLength; n++) {
 					tmp.transform.position = new Vector3 (0 + (employee_Offset_x * i), 1 + (employee_Offset_y * n), 1);
 				}
-			}
-
-
-
-	
+			}	
 
 			SpriteRenderer tmpSprite = tmp.GetComponent<SpriteRenderer> ();
 			tmpSprite.sprite = employeeManager.instance.Employee_List [ListPos].GetComponent<laborer_script> ().characterSprite;
@@ -67,18 +62,20 @@ public class GM_Alpha : MonoBehaviour {
 			//laborer_script tmpLS = tmp.AddComponent <laborer_script>() as laborer_script;
 			employeeManager.instance.Active_Employees.Add (tmp);
 			employeeManager.instance.total_Daily_Cost += tmp.GetComponent<laborer_script> ().wage; //add the newest wage to the daily cost
+			tmp.GetComponent<laborer_script>().hired = true; //set the employee bool to hired so e we can make sure stuff in the carousel works
 
 			//employeeManager.instance.Carousel (); //this guy is causing trouble, problem with not having a new employee to pull the character sprite from
 
-			if (employeeManager.instance.Active_Employees.Count == 1) {
+			if (employeeManager.instance.Active_Employees.Count == 1) { //if we actually have employees then add 
 				employee_Fire_List.SetActive (true);
 				wagesObj.SetActive (true);//activate the text that shows the daily cost
 			}
+			Animator anim = employee_hire_view.GetComponent<Animator>();
+			anim.Play ("employee_hire");
+			// Function below will 
 
-
-			employee_hire_view.GetComponent<Animator> ().Play ("employee_hire");
+	
 			//update the employee that we are viewing to hire
-
 
 
 			Employee_List_Obj (tmp); //Add this peep to the list
@@ -86,8 +83,22 @@ public class GM_Alpha : MonoBehaviour {
 			Update_Max_Employees();
 			CameraManager();
 			CameraSize ();
-
 		}
+	}
+
+
+
+	public void NextEmployeeView(){ //coursel control
+	
+		if (employeeManager.instance.Employee_List [ListPos + 1] != null) {
+			if (!employeeManager.instance.Employee_List [ListPos + 1].GetComponent<laborer_script> ().hired) {
+				//check if the thing is done before we change the sprite
+				employee_hire_view.GetComponent<Image> ().sprite = employeeManager.instance.Employee_List [ListPos + 1].GetComponent<laborer_script> ().characterSprite;
+
+				employee_hire_view.GetComponent<Animator> ().Play ("employee_from_left");
+			}
+		}
+
 
 	}
 
