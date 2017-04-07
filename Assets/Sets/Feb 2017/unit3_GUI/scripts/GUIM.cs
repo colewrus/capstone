@@ -40,7 +40,7 @@ public class GUIM : MonoBehaviour {
 			nameHold = EventSystem.current.currentSelectedGameObject.gameObject;
 
 			if (tutorial.instance == null) {
-				print ("panel active check");
+				
 				if (employeeManager.instance.Active_Employees.Count > 0) {
 					Camera_Panel_Reset (1);
 				}

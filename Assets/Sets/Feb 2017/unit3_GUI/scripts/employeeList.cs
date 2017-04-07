@@ -28,7 +28,7 @@ public class employeeList : MonoBehaviour {
 
 		employeeManager.instance.Active_Employees.Remove (tmp);
 		GM_Alpha.instance.Update_Max_Employees(); //update the text for the current/maximum employees
-		print (this.transform.parent.name);
+
 		Destroy (this.transform.parent.gameObject);
 		Destroy (tmp);
 

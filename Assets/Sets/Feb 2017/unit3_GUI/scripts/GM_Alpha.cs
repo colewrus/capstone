@@ -9,6 +9,7 @@ public class GM_Alpha : MonoBehaviour {
 
 	public GameObject employee_Fire_List; //make the list handler appear in the GUI should be named "current_Employees"
 	public GameObject employee_Listing; //add the actual UI object that holds the info
+	public GameObject employee_hire_view; //this is the sprite for the employee you are viewing to hire
 
 
 	public float employee_Offset_x;
@@ -55,11 +56,10 @@ public class GM_Alpha : MonoBehaviour {
 					tmp.transform.position = new Vector3 (0 + (employee_Offset_x * i), 1 + (employee_Offset_y * n), 1);
 				}
 			}
-			//figure out placement grid
 
 
-			//change the camera size depending on the 
 
+	
 
 			SpriteRenderer tmpSprite = tmp.GetComponent<SpriteRenderer> ();
 			tmpSprite.sprite = employeeManager.instance.Employee_List [ListPos].GetComponent<laborer_script> ().characterSprite;
@@ -74,6 +74,12 @@ public class GM_Alpha : MonoBehaviour {
 				employee_Fire_List.SetActive (true);
 				wagesObj.SetActive (true);//activate the text that shows the daily cost
 			}
+
+
+			employee_hire_view.GetComponent<Animator> ().Play ("employee_hire");
+			//update the employee that we are viewing to hire
+
+
 
 			Employee_List_Obj (tmp); //Add this peep to the list
 			Update_Wage_Text ();//update the text
@@ -92,11 +98,9 @@ public class GM_Alpha : MonoBehaviour {
 
 		if (counted == 1) {
 			GUIM.instance.laborerFocus = employeeManager.instance.Active_Employees [0].transform.position + (transform.forward * -2);
-
 		} else if (counted > 1 && counted < 7) {
 			GUIM.instance.laborerFocus = employeeManager.instance.Active_Employees [1].transform.position + (transform.forward * -2);
 		}
-
 
 		GUIM.instance.Camera_Panel_Reset(1);
 		CameraSize ();
