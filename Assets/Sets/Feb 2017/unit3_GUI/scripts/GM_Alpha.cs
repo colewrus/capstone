@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
-public class GM_Alpha : MonoBehaviour {
+public class GM_Alpha : MonoBehaviour {  //------------------------BASICALLY THE EMPLOYEE MANAGER------------------------
 
 	public static GM_Alpha instance = null;
 
@@ -16,11 +16,11 @@ public class GM_Alpha : MonoBehaviour {
 	public float employee_Offset_y;
 	public int rowLength; //controls hoe many workers in a row, dynamically changes with a max employee upgrade
 
-	public Animator hireAnimation;
+	//public Animator hireAnimation;
 
 	GameObject wagesObj;
-	GameObject max_employee_Obj;
-	int ListPos;
+	public GameObject max_employee_Obj;
+	public int ListPos;
 
 	void Awake(){
 		if (instance == null)
@@ -33,21 +33,25 @@ public class GM_Alpha : MonoBehaviour {
 	void Start () {
 		ListPos = 0;
 		wagesObj = employee_Fire_List.transform.parent.transform.GetChild (0).gameObject;
-		max_employee_Obj = GameObject.Find ("max_employees");
+
+		print (max_employee_Obj.GetComponent<Text> ().text);
 		max_employee_Obj.GetComponent<Text> ().text = "Max Employees: " + employeeManager.instance.Active_Employees.Count + "/" + employeeManager.instance.MaxEmployees;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+			
 	}
 
-
 	public void AddEmployee(){
-
 		if(employeeManager.instance.Active_Employees.Count < employeeManager.instance.MaxEmployees){
-			
+			//if the employee has been hired then dont
 			ListPos = employeeManager.instance.Active_Employees.Count;
+
+			if (employeeManager.instance.Employee_List [ListPos].GetComponent<laborer_script> ().hired) {
+				return;
+			}
+
 			GameObject tmp = (GameObject)Instantiate (employeeManager.instance.Employee_List [ListPos], new Vector3 (0, 1, 1), Quaternion.identity);
 
 			for (int i = 0; i < ListPos; i++) {				
@@ -57,12 +61,13 @@ public class GM_Alpha : MonoBehaviour {
 			}	
 
 			SpriteRenderer tmpSprite = tmp.GetComponent<SpriteRenderer> ();
-			tmpSprite.sprite = employeeManager.instance.Employee_List [ListPos].GetComponent<laborer_script> ().characterSprite;
+			tmpSprite.sprite = tmp.GetComponent<laborer_script> ().characterSprite;
+
 			tmp.gameObject.name = employeeManager.instance.Employee_List [ListPos].GetComponent<laborer_script> ().name;
 			//laborer_script tmpLS = tmp.AddComponent <laborer_script>() as laborer_script;
 			employeeManager.instance.Active_Employees.Add (tmp);
 			employeeManager.instance.total_Daily_Cost += tmp.GetComponent<laborer_script> ().wage; //add the newest wage to the daily cost
-			tmp.GetComponent<laborer_script>().hired = true; //set the employee bool to hired so e we can make sure stuff in the carousel works
+			employeeManager.instance.Employee_List[ListPos].GetComponent<laborer_script>().hired = true; //set the employee bool to hired so e we can make sure stuff in the carousel works
 
 			//employeeManager.instance.Carousel (); //this guy is causing trouble, problem with not having a new employee to pull the character sprite from
 
@@ -77,6 +82,7 @@ public class GM_Alpha : MonoBehaviour {
 	
 			//update the employee that we are viewing to hire
 
+		
 
 			Employee_List_Obj (tmp); //Add this peep to the list
 			Update_Wage_Text ();//update the text
@@ -87,16 +93,25 @@ public class GM_Alpha : MonoBehaviour {
 	}
 
 
-
-	public void NextEmployeeView(){ //coursel control
+	public void Employee_Up(){
+		//
 	
-		if (employeeManager.instance.Employee_List [ListPos + 1] != null) {
+	}
+
+	public void Employee_Down(){
+	
+	}
+
+
+	public void NextEmployeeView(){ //coursel control	
+		if (employeeManager.instance.Employee_List [ListPos + 1] != null) {			
 			if (!employeeManager.instance.Employee_List [ListPos + 1].GetComponent<laborer_script> ().hired) {
 				//check if the thing is done before we change the sprite
 				employee_hire_view.GetComponent<Image> ().sprite = employeeManager.instance.Employee_List [ListPos + 1].GetComponent<laborer_script> ().characterSprite;
-
 				employee_hire_view.GetComponent<Animator> ().Play ("employee_from_left");
 			}
+		} else {
+			employeeManager.instance.hireIcon.gameObject.SetActive (false);
 		}
 
 
@@ -122,6 +137,7 @@ public class GM_Alpha : MonoBehaviour {
 		_tmp.transform.SetParent (employee_Fire_List.transform.GetChild(0).gameObject.transform); //set to the proper parent
 		_tmp.transform.localScale = new Vector3 (1, 1, 1); //rescale
 		_tmp.transform.GetChild (0).gameObject.GetComponent<Image> ().sprite = eObj.GetComponent<laborer_script> ().characterSprite; //set variables to the object we just made
+		_tmp.transform.GetChild (0).gameObject.transform.localScale = new Vector2(0.65f, 1);
 		_tmp.transform.GetChild (1).gameObject.GetComponent<Text> ().text = "$" + eObj.GetComponent<laborer_script> ().wage;
 		_tmp.transform.GetChild (2).gameObject.GetComponent<employeeList> ().placeInActiveList = (employeeManager.instance.Active_Employees.Count - 1);
 	}

@@ -19,6 +19,7 @@ public class employeeList : MonoBehaviour {
 		//print (this.gameObject.GetComponent<employeeList> ().placeInActiveList);
 		GM_Alpha.instance.CameraManager();
 
+		//!----- Need to change this because as you remove items this not longer works
 		GameObject tmp = employeeManager.instance.Active_Employees[placeInActiveList];//set a tepmorary variable to hold the employee gameobject associated with this fire buton
 		employeeManager.instance.total_Daily_Cost -= tmp.GetComponent<laborer_script>().wage; //extract from the total wage pool
 		GM_Alpha.instance.Update_Wage_Text (); //update the text element for the wages 

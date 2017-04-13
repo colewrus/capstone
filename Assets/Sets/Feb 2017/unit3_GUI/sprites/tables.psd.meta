@@ -1,11 +1,12 @@
 fileFormatVersion: 2
 guid: a270d573603e3e74e91a673ec52a6950
-timeCreated: 1490334943
+timeCreated: 1491684708
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
     21300000: tables_0
     21300002: tables_1
+    21300004: tables_2
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -58,10 +59,23 @@ TextureImporter:
       name: tables_1
       rect:
         serializedVersion: 2
+        x: 333
+        y: 483
+        width: 73
+        height: 83
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: tables_2
+      rect:
+        serializedVersion: 2
         x: 23
-        y: 451
+        y: 471
         width: 252
-        height: 126
+        height: 107
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}

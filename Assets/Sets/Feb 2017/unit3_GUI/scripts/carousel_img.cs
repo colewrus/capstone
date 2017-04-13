@@ -11,10 +11,14 @@ public class carousel_img : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+
 	}
 
 	public void SwapSprite(){
-		print ("da fuq");
+		GM_Alpha.instance.NextEmployeeView ();
+	}
+
+	public void Bill_Carousel(){ //true is right, false is left
+		GM_Bill.instance.changeSprite();
 	}
 }

@@ -16,8 +16,11 @@ public class laborer_script : MonoBehaviour{
 	public AnimatorController animC;
 	public bool hired;
 
-	void Awake(){
+	public Product assigned_Product;
+
+	void Start(){
 		hired = false;
+		assigned_Product = null;
 	}
 
 }

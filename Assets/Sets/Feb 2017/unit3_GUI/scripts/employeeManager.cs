@@ -27,11 +27,18 @@ public class employeeManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		MaxEmployees = 2;
+		for (int i = 0; i < Employee_List.Count; i++) {
+			if (Employee_List [i] != null) {				
+				Employee_List [i].GetComponent<laborer_script> ().hired = false;
+			}
+
+		}
 
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		
 	
 	}
 
@@ -40,9 +47,18 @@ public class employeeManager : MonoBehaviour {
 		hireIcon.GetComponent<Image>().sprite = Employee_List [Active_Employees.Count].GetComponent<laborer_script> ().characterSprite;
 	}
 
+
+	public void Employee_Tick(){ 	
+		//do I have employee
+		if (Active_Employees != null || Active_Employees.Count >= 0) {
+			//Employee checks their active item
+		}
+
+
+	
+	}
+
+
 }
 
-public class Employee_Class {
 
-
-}
