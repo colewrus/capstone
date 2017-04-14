@@ -19,7 +19,7 @@ public class tutorial : MonoBehaviour {
 	AudioSource tut_Audio;
 
 	public float first_Click_delay;
-	bool click_Check;
+	public bool click_Check;
 	float timer;
 
 	public float workClickAmount;
@@ -37,6 +37,9 @@ public class tutorial : MonoBehaviour {
 
 	public int chair_count;
 
+	public GameObject titleCard;
+
+
 	void Awake(){
 		if (instance == null)
 			instance = this;
@@ -47,6 +50,13 @@ public class tutorial : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		//Color tmpColor = titleCard.GetComponent<Image> ().color;
+		//tmpColor.a = 0.01f;
+		//titleCard.GetComponent<Image> ().color = tmpColor;
+		//titleCard.GetComponentInChildren<Text> ().color = tmpColor;
+		titleCard.GetComponent<Image>().canvasRenderer.SetAlpha(0.01f);
+		titleCard.SetActive (false);
+
 		camStart = true;
 		panel_ButtonBKG.SetActive (false);
 		GUIM.instance.infoPanel.SetActive (false);
@@ -84,19 +94,22 @@ public class tutorial : MonoBehaviour {
 		//create the box
 		//Vector3 tmpIcon = icon.gameObject.transform.localScale;
 
-		icon.gameObject.GetComponent<tutorial_Product> ().Scale (new Vector3 (2, 2, 1));
+		icon.gameObject.GetComponent<tutorial_Product> ().Scale (new Vector3 (1, 1, 1));
 		icon.transform.SetParent ((GameObject.Find ("Canvas").transform));
-		icon.transform.position = Camera.main.WorldToScreenPoint (table.transform.position + (transform.up * 0.75f));
+		icon.transform.position = Camera.main.WorldToScreenPoint (table.transform.position + (transform.up * 0.55f));
 
 		if (timer < first_Click_delay) {
 			if (Input.GetMouseButtonDown (0)) {
+				click_Check = true;
 				tutorial_Stage [0] = true;
 				tut_Audio.PlayOneShot (VO [0], 0.8f);
-				Invoke ("Play_Invoke", VO [0].length + 1);
+				//Invoke ("Play_Invoke", VO [0].length + 1);
 			}
 		} else {
 			tutorial_Stage [0] = true;
-			tut_Audio.PlayOneShot (VO [1], 0.8f); //actually play VO[1]
+			if(!click_Check){
+				tut_Audio.PlayOneShot (VO [1], 0.8f); //actually play VO[1]
+			}
 		}
 
 	}
@@ -126,8 +139,8 @@ public class tutorial : MonoBehaviour {
 		camStart = false;
 		GUIM.instance.infoPanel.GetComponent<UIController>().Show();
 		GUIM.instance.buttons_info [3].SetActive (true);
-		icon.GetComponent<tutorial_Product> ().Scale (new Vector3 (1, 1, 1));
-		icon.transform.position = Camera.main.WorldToScreenPoint (table.transform.position + (transform.up * 0.5f));
+		icon.GetComponent<tutorial_Product> ().Scale (new Vector3 (0.8f, 0.8f, 1));
+		icon.transform.position = Camera.main.WorldToScreenPoint (table.transform.position + (transform.up * 0.25f));
 
 		ResetIcon ();
 		if (employee_ActiveList != null) {
@@ -137,6 +150,7 @@ public class tutorial : MonoBehaviour {
 
 	void Step_3(){
 		icon.GetComponent<Image> ().sprite = iconList [1];
+		icon.GetComponent<tutorial_Product> ().Scale (new Vector3 (0.8f, 0.8f, 1));
 	}
 
 	public void Bill_First(){
@@ -146,7 +160,7 @@ public class tutorial : MonoBehaviour {
 	void Bob_Tick(){
 		print ("tick");
 		icon.GetComponent<tutorial_Product> ().Employee_Work ();
-		employee_ActiveList [0].GetComponent<Animator> ().Play ("bob_work");
+		employee_ActiveList [0].GetComponent<Animator> ().Play ("jim_work");
 	}
 
 
@@ -193,10 +207,19 @@ public class tutorial : MonoBehaviour {
 			tut_Audio.PlayOneShot (VO [7], 0.8f);
 		} else if (chair_count == 6) {
 			tut_Audio.PlayOneShot (VO [9], 0.8f);
+			Invoke ("end_Tutorial", VO [9].length);
 		}
 
 	}
-	
+
+
+	void end_Tutorial(){
+		icon.SetActive (false);
+		titleCard.SetActive (true);
+		
+	}
+
+
 	// Update is called once per frame
 	void Update () {
 		if (!tutorial_Stage [0]) {

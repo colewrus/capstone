@@ -17,7 +17,7 @@ public class GM_Bill : MonoBehaviour {
 
 
 	//UI elements
-	public Image img_Product;
+	public Image img_Product; //image of the employee you are viewing
 	Animator anim;
 
 	void Awake(){
@@ -37,11 +37,7 @@ public class GM_Bill : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKey (KeyCode.Space)) {
-			if (employeeManager.instance.Active_Employees != null) {
-				employeeManager.instance.Active_Employees [0].GetComponent<laborer_script> ().assigned_Product = warehouse [0];
-			}
-		}
+
 	
 	}
 
@@ -56,6 +52,9 @@ public class GM_Bill : MonoBehaviour {
 				current_Hover_product = warehouse [carousel_Pos];
 
 				//update info box
+					//name
+					//material cost
+					//revenue
 
 			} else {
 				print ("can't even");
@@ -74,6 +73,11 @@ public class GM_Bill : MonoBehaviour {
 				current_Hover_product = warehouse [carousel_Pos]; //current hover needs to hold the product info
 
 				//update the info box
+					//name
+					//material cost
+					//revenue
+
+
 			} else {
 				return;
 			}
@@ -88,8 +92,18 @@ public class GM_Bill : MonoBehaviour {
 
 
 	public void Add_Bill(){
+		Product newProd = new Product ();
+		newProd.name = current_Hover_product.name;
+		newProd.current_workers = 0;
+		newProd.maximum_workers = current_Hover_product.maximum_workers;
+		newProd.materialCost = current_Hover_product.materialCost;
+		newProd.energyCost = current_Hover_product.energyCost;
+		newProd.laborCost = current_Hover_product.laborCost;
+		newProd.productIcon = current_Hover_product.productIcon;
+		newProd.rawCost = current_Hover_product.rawCost;
+		
+		Queue.Add (newProd);
 
-		Queue.Add (current_Hover_product);
 		//calculate the costs for the product
 	
 	}

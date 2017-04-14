@@ -2,8 +2,8 @@
 using System.Collections;
 
 
-[System.Serializable]
-public class Product {
+[CreateAssetMenu(fileName = "Data", menuName = "Product/List", order = 1)]
+public class Product : ScriptableObject{
 
 	public string name;
 	public Sprite objBlock; //the workshop block
@@ -14,5 +14,7 @@ public class Product {
 	public float value;
 	public int maximum_workers;
 	public int current_workers;
+
+	public float rawCost; //the work variable to determine how much work gets done
 
 }

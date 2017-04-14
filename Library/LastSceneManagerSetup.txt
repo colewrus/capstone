@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Sets/Feb 2017/unit3_GUI/tabs.unity
+- path: Assets/Sets/Feb 2017/unit3_GUI/tutorial_beta.unity
   isLoaded: 1
   isActive: 1

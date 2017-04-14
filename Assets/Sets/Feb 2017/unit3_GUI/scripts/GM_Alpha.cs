@@ -22,6 +22,8 @@ public class GM_Alpha : MonoBehaviour {  //------------------------BASICALLY THE
 	public GameObject max_employee_Obj;
 	public int ListPos;
 
+	public Text employee_Name; 
+
 	void Awake(){
 		if (instance == null)
 			instance = this;
@@ -34,7 +36,6 @@ public class GM_Alpha : MonoBehaviour {  //------------------------BASICALLY THE
 		ListPos = 0;
 		wagesObj = employee_Fire_List.transform.parent.transform.GetChild (0).gameObject;
 
-		print (max_employee_Obj.GetComponent<Text> ().text);
 		max_employee_Obj.GetComponent<Text> ().text = "Max Employees: " + employeeManager.instance.Active_Employees.Count + "/" + employeeManager.instance.MaxEmployees;
 	}
 	
@@ -44,9 +45,7 @@ public class GM_Alpha : MonoBehaviour {  //------------------------BASICALLY THE
 	}
 
 	public void AddEmployee(){
-		if(employeeManager.instance.Active_Employees.Count < employeeManager.instance.MaxEmployees){
-			//if the employee has been hired then dont
-			ListPos = employeeManager.instance.Active_Employees.Count;
+		if(employeeManager.instance.Active_Employees.Count < employeeManager.instance.MaxEmployees){			
 
 			if (employeeManager.instance.Employee_List [ListPos].GetComponent<laborer_script> ().hired) {
 				return;
@@ -78,37 +77,29 @@ public class GM_Alpha : MonoBehaviour {  //------------------------BASICALLY THE
 			Animator anim = employee_hire_view.GetComponent<Animator>();
 			anim.Play ("employee_hire");
 			// Function below will 
-
-	
-			//update the employee that we are viewing to hire
-
-		
+			tmp.GetComponent<Animator>().Play("work_idle");
+			//update the employee that we are viewing to hire		
 
 			Employee_List_Obj (tmp); //Add this peep to the list
 			Update_Wage_Text ();//update the text
 			Update_Max_Employees();
 			CameraManager();
 			CameraSize ();
+			ListPos++;
+
 		}
 	}
 
 
-	public void Employee_Up(){
-		//
-	
-	}
-
-	public void Employee_Down(){
-	
-	}
 
 
 	public void NextEmployeeView(){ //coursel control	
-		if (employeeManager.instance.Employee_List [ListPos + 1] != null) {			
-			if (!employeeManager.instance.Employee_List [ListPos + 1].GetComponent<laborer_script> ().hired) {
+		if (employeeManager.instance.Employee_List [ListPos] != null && employeeManager.instance.Active_Employees.Count < employeeManager.instance.MaxEmployees) {			
+			if (!employeeManager.instance.Employee_List [ListPos].GetComponent<laborer_script> ().hired) {
 				//check if the thing is done before we change the sprite
-				employee_hire_view.GetComponent<Image> ().sprite = employeeManager.instance.Employee_List [ListPos + 1].GetComponent<laborer_script> ().characterSprite;
+				employee_hire_view.GetComponent<Image> ().sprite = employeeManager.instance.Employee_List [ListPos].GetComponent<laborer_script> ().characterSprite;
 				employee_hire_view.GetComponent<Animator> ().Play ("employee_from_left");
+				employee_Name.text = employeeManager.instance.Employee_List [ListPos].GetComponent<laborer_script> ().name;
 			}
 		} else {
 			employeeManager.instance.hireIcon.gameObject.SetActive (false);
@@ -118,7 +109,7 @@ public class GM_Alpha : MonoBehaviour {  //------------------------BASICALLY THE
 	}
 
 
-	public void CameraManager(){
+	public void CameraManager(){ //reset the camera to focus on the employees
 
 		int counted = employeeManager.instance.Active_Employees.Count;
 
@@ -132,7 +123,7 @@ public class GM_Alpha : MonoBehaviour {  //------------------------BASICALLY THE
 		CameraSize ();
 	}
 
-	void Employee_List_Obj(GameObject eObj){
+	void Employee_List_Obj(GameObject eObj){ //actually adds the employee to the factory floor
 		GameObject _tmp = (GameObject)Instantiate (employee_Listing, transform.position, Quaternion.identity); //make the ui object that holds the details
 		_tmp.transform.SetParent (employee_Fire_List.transform.GetChild(0).gameObject.transform); //set to the proper parent
 		_tmp.transform.localScale = new Vector3 (1, 1, 1); //rescale

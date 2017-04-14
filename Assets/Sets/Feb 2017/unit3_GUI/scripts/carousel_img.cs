@@ -14,7 +14,7 @@ public class carousel_img : MonoBehaviour {
 
 	}
 
-	public void SwapSprite(){
+	public void SwapSprite(){ //update the employee sprite for hiring
 		GM_Alpha.instance.NextEmployeeView ();
 	}
 

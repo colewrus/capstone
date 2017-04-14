@@ -55,6 +55,7 @@
      <Compile Include="Assets\Sets\Feb 2017\unit2\unit2_GM.cs" />
      <Compile Include="Assets\Sets\Feb 2017\unit3_GUI\scripts\GM_Alpha.cs" />
      <Compile Include="Assets\Sets\Feb 2017\unit3_GUI\scripts\GM_Bill.cs" />
+     <Compile Include="Assets\Sets\Feb 2017\unit3_GUI\scripts\GM_Mats.cs" />
      <Compile Include="Assets\Sets\Feb 2017\unit3_GUI\scripts\GUIM.cs" />
      <Compile Include="Assets\Sets\Feb 2017\unit3_GUI\scripts\Product.cs" />
      <Compile Include="Assets\Sets\Feb 2017\unit3_GUI\scripts\carousel_img.cs" />
@@ -63,6 +64,8 @@
      <Compile Include="Assets\Sets\Feb 2017\unit3_GUI\scripts\laborer_script.cs" />
      <Compile Include="Assets\Sets\Feb 2017\unit3_GUI\scripts\tutorial.cs" />
      <Compile Include="Assets\Sets\Feb 2017\unit3_GUI\scripts\tutorial_Product.cs" />
+     <Compile Include="Assets\Sets\scriptableObjects\scriptObj.cs" />
+     <Compile Include="Assets\Sets\scriptableObjects\testScriptable.cs" />
      <Compile Include="Assets\UIController\Examples\CSS\Square.cs" />
      <Compile Include="Assets\UIController\Examples\Popups\Scripts\UIControllerExample.cs" />
      <Compile Include="Assets\UIController\Examples\Popups\Scripts\UIControllerExample8.cs" />
