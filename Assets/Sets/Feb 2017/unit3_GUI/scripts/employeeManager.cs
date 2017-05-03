@@ -28,7 +28,7 @@ public class employeeManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		MaxEmployees = 1;
+		
 		for (int i = 0; i < Employee_List.Count; i++) {
 			if (Employee_List [i] != null) {				
 				Employee_List [i].GetComponent<laborer_script> ().hired = false;
@@ -65,6 +65,8 @@ public class employeeManager : MonoBehaviour {
 		employee_Work ();
 
 	}
+
+
 
 
 

@@ -119,6 +119,7 @@ public class tutorial : MonoBehaviour {
 	}
 
 	void Step_1(){
+		end_Tutorial ();
 		print ("step1");
 		icon.SetActive (false);
 		ResetIcon ();
@@ -207,16 +208,18 @@ public class tutorial : MonoBehaviour {
 			tut_Audio.PlayOneShot (VO [7], 0.8f);
 		} else if (chair_count == 6) {
 			tut_Audio.PlayOneShot (VO [9], 0.8f);
-			Invoke ("end_Tutorial", VO [9].length);
+			//Invoke ("end_Tutorial", VO [9].length);
 		}
 
 	}
 
 
 	void end_Tutorial(){
-		icon.SetActive (false);
 		titleCard.SetActive (true);
-		
+		if (titleCard.GetComponent<Animator> ().GetCurrentAnimatorStateInfo (0).IsName ("fadeIn")) {
+			titleCard.GetComponent<Animator>().speed = 0.25f;
+		}
+		titleCard.GetComponent<Animator> ().Play ("fadeIn");
 	}
 
 
