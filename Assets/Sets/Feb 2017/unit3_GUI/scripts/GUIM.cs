@@ -82,7 +82,7 @@ public class GUIM : MonoBehaviour {
 		infoPanel.GetComponent<UIController> ().Public_Hide ();
 		button_Manager ();
 		if (tutorial.instance == null) {
-			print ("Check");
+			
 			if (employeeManager.instance.Active_Employees.Count > 0) {
 				Camera_Panel_Reset (0);
 			}

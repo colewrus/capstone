@@ -8,12 +8,20 @@ public class GM_Bill : MonoBehaviour {
 
 	public static GM_Bill instance = null;
 
-	public List<Product> warehouse = new List<Product> ();
+	public List<GameObject> queued_UI = new List<GameObject> (); //the toggle that chooses how many products will be added
+	public float amount_add_Queue; //the variable for the toggle
+	public List<Product> warehouse = new List<Product> (); // list of the products that can be selected
 
 	public Product current_Hover_product; //this is what you are seeing on the panel right now
+	public Text current_Product_name;
+	public Text current_Product_cost_text;
+	public Text current_Product_value;
+
+
 	int carousel_Pos; //your position in the carousel
 
-	public List<Product> Queue = new List<Product>();
+	public List<Product> Queue = new List<Product>(); //the items in the queue for employees to "claim" 
+
 
 
 	//UI elements
@@ -33,6 +41,12 @@ public class GM_Bill : MonoBehaviour {
 		img_Product.sprite = warehouse [0].productIcon;
 		carousel_Pos = 0;
 		anim = img_Product.GetComponent<Animator> ();
+
+		current_Product_cost_text.text = "--- materials";
+		amount_add_Queue = 1;
+		for (int i = 0; i < queued_UI.Count; i++) {
+			queued_UI [i].SetActive (false);
+		}
 	}
 	
 	// Update is called once per frame
@@ -43,7 +57,7 @@ public class GM_Bill : MonoBehaviour {
 
 
 	public void GUI_Carousel(){ 
-		string dir = EventSystem.current.currentSelectedGameObject.name;
+		string dir = EventSystem.current.currentSelectedGameObject.name; //get arrow direction
 		if (dir == "button_Left") {
 			//do left
 			if (current_Hover_product != warehouse [0]) {
@@ -84,6 +98,18 @@ public class GM_Bill : MonoBehaviour {
 		}		
 	}
 
+	public void setBuyAmount(){
+		if (EventSystem.current.currentSelectedGameObject.name == "plusOneBox") {
+			amount_add_Queue = 1;
+		}
+		if (EventSystem.current.currentSelectedGameObject.name == "plusFiveBox") {
+			amount_add_Queue = 5;
+		}
+		if (EventSystem.current.currentSelectedGameObject.name == "plusTenBox") {
+			amount_add_Queue = 10;
+		}
+
+	}
 
 	public void changeSprite(){
 		

@@ -63,6 +63,8 @@ public class GM_Mats : MonoBehaviour {
 				current_Mats += 1;
 				GM_Alpha.instance.money -= 1;
 				GM_Alpha.instance.money_Text.text = "$" + GM_Alpha.instance.money;
+			}else { //but if it will go over let's split the difference and fill it up to the max	
+				current_Mats += (max_Storage-current_Mats);
 			}
 
 			buttonText.text = "Materials:\n" + current_Mats + "/" + max_Storage;
@@ -73,6 +75,8 @@ public class GM_Mats : MonoBehaviour {
 				current_Mats += 5;
 				GM_Alpha.instance.money -= 5;
 				GM_Alpha.instance.money_Text.text = "$" + GM_Alpha.instance.money;
+			}else { //but if it will go over let's split the difference and fill it up to the max	
+				current_Mats += (max_Storage-current_Mats);
 			}
 
 			buttonText.text = "Materials:\n" + current_Mats + "/" + max_Storage;
@@ -83,7 +87,10 @@ public class GM_Mats : MonoBehaviour {
 				current_Mats += 10;
 				GM_Alpha.instance.money -= 10;
 				GM_Alpha.instance.money_Text.text = "$" + GM_Alpha.instance.money;
+			} else {
+				current_Mats += (max_Storage-current_Mats);
 			}
+
 			buttonText.text = "Materials:\n" + current_Mats + "/" + max_Storage;
 			panel_Total_text.text = "Materials:\n" + current_Mats + "/" + max_Storage;
 		}
@@ -92,8 +99,8 @@ public class GM_Mats : MonoBehaviour {
 				current_Mats += 25;
 				GM_Alpha.instance.money -= 25;
 				GM_Alpha.instance.money_Text.text = "$" + GM_Alpha.instance.money;
-			} else {
-				current_Mats += ((current_Mats + 25) - max_Storage);
+			} else { //but if it will go over let's split the difference and fill it up to the max				
+				current_Mats += (max_Storage-current_Mats);
 			}
 
 			buttonText.text = "Materials:\n" + current_Mats + "/" + max_Storage;
@@ -108,6 +115,12 @@ public class GM_Mats : MonoBehaviour {
 			current_Mats += materialSlider.GetComponent<Slider> ().value;
 			GM_Alpha.instance.money -= (cost_Tick_per*materialSlider.GetComponent<Slider>().value);
 			GM_Alpha.instance.money_Text.text = "$" + GM_Alpha.instance.money;
+		}else { //but if it will go over let's split the difference and fill it up to the max	
+			print(tmp-max_Storage);
+			current_Mats += (max_Storage-current_Mats);
+			GM_Alpha.instance.money -= ((tmp - max_Storage) * cost_Tick_per);
+			GM_Alpha.instance.money_Text.text = "$" + GM_Alpha.instance.money;
+
 		}
 
 		buttonText.text = "Materials:\n" + current_Mats + "/" + max_Storage;
