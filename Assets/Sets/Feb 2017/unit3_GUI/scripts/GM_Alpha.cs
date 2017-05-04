@@ -93,7 +93,12 @@ public class GM_Alpha : MonoBehaviour {  //------------------------BASICALLY THE
             employeeManager.instance.startTick();
 			if (employeeManager.instance.Active_Employees.Count > employeePos.Count) {
 				print ("hellfire and destruction");
-				Destroy (tmp);
+				tmp.SetActive (false);
+				/*
+				tmp.transform.GetChild (0).gameObject.SetActive (false);
+				tmp.GetComponent<SpriteRenderer> ().gameObject.SetActive (false);
+				tmp.GetComponent<Animator> ().gameObject.SetActive (false);
+				*/
 			}
 
 		} else {

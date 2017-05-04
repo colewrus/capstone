@@ -112,8 +112,10 @@ public class GM_Mats : MonoBehaviour {
 
 		if (tmp < max_Storage) {			
 			current_Mats += materialSlider.GetComponent<Slider> ().value;
-			GM_Alpha.instance.money -= (cost_Tick_per*materialSlider.GetComponent<Slider>().value);
+			GM_Alpha.instance.money -= (cost_Tick_per * materialSlider.GetComponent<Slider> ().value);
 			GM_Alpha.instance.money_Text.text = "$" + GM_Alpha.instance.money;
+		} else if (current_Mats == max_Storage) {
+			print ("niet");
 		}else { //but if it will go over let's split the difference and fill it up to the max	
 			
 			current_Mats += (max_Storage-current_Mats);
