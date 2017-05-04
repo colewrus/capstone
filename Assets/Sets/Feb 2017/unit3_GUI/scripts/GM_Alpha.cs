@@ -53,11 +53,7 @@ public class GM_Alpha : MonoBehaviour {  //------------------------BASICALLY THE
 
 	public void AddEmployee(){
 		if (employeeManager.instance.Active_Employees.Count < employeeManager.instance.MaxEmployees) {			
-			/*
-			if (employeeManager.instance.Employee_List [ListPos].GetComponent<laborer_script> ().hired) {
-				return;
-			}
-			*/
+
 			GameObject tmp = (GameObject)Instantiate (employeeManager.instance.Employee_List [0], new Vector3 (0, 1, 1), Quaternion.identity);
 
 
@@ -94,7 +90,7 @@ public class GM_Alpha : MonoBehaviour {  //------------------------BASICALLY THE
 			CameraManager ();
 			CameraSize ();
 			ListPos++;
-
+            employeeManager.instance.startTick();
 			if (employeeManager.instance.Active_Employees.Count > employeePos.Count) {
 				print ("hellfire and destruction");
 				Destroy (tmp);

@@ -14,6 +14,8 @@ public class employeeManager : MonoBehaviour {
 	public float total_Daily_Cost;
 	public int MaxEmployees;
 
+    public float employee_Tick_delay;
+
 	public Image hireIcon;
 
 	public int placeInActiveList;
@@ -39,14 +41,12 @@ public class employeeManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKeyDown (KeyCode.Space)) {
 
-			Employee_Tick ();
-		}
 	}
 
 	public void startTick(){
-		InvokeRepeating ("Employee_Tick", 1.0f, 1f);
+		InvokeRepeating ("Employee_Tick", 1.0f, employee_Tick_delay);
+       
 	}
 
 	public void stopTick(){
@@ -74,8 +74,17 @@ public class employeeManager : MonoBehaviour {
 		for (int i = 0; i < Active_Employees.Count; i++) {
 			if (Active_Employees [i].GetComponent<laborer_script> ().assigned_Product != null) {
 				if (Active_Employees [i].GetComponent<laborer_script> ().assigned_Product.rawCost > 0) {
-					Active_Employees [i].GetComponent<laborer_script> ().assigned_Product.rawCost -= Active_Employees [i].GetComponent<laborer_script> ().workScore;
+                    //do a material check
+                    if(GM_Mats.instance.current_Mats > Active_Employees[i].GetComponent<laborer_script>().workScore)
+                    {
+                        GM_Mats.instance.current_Mats -= Active_Employees[i].GetComponent<laborer_script>().workScore;
+                        Active_Employees[i].GetComponent<laborer_script>().assigned_Product.rawCost -= Active_Employees[i].GetComponent<laborer_script>().workScore;
+                    }else //more mats needed
+                    {
+                        print("mats needed");
+                    }               
 				}
+
 				if(Active_Employees [i].GetComponent<laborer_script> ().assigned_Product.rawCost <= 0) {
                     GM_Alpha.instance.money += Active_Employees[i].GetComponent<laborer_script>().assigned_Product.value;
                     Active_Employees [i].GetComponent<laborer_script> ().assigned_Product = null;
@@ -90,22 +99,26 @@ public class employeeManager : MonoBehaviour {
 
 	public void Assign_Product(){ //assign products
 				
-		for (int i = 0; i < Active_Employees.Count; i++) { //Go through employees list
-            print(Active_Employees[i].name);
+		for (int i = 0; i < Active_Employees.Count; i++) { //Go through employees list          
 			
 			if (Active_Employees [i].GetComponent<laborer_script> ().assigned_Product == null) {				
-				
-				for (int j = 0; j < GM_Bill.instance.Queue.Count; j++) { //the queue list
+				if(GM_Bill.instance.Queue.Count > 0)
+                {
+                    for (int j = 0; j < GM_Bill.instance.Queue.Count; j++)
+                    { //the queue list                    
 
-                    print(GM_Bill.instance.Queue[j].name);
+                        Product tmpProd = GM_Bill.instance.Queue[j];
+                        Active_Employees[i].GetComponent<laborer_script>().assigned_Product = tmpProd; //assign the product we are checking to the employee
+                        tmpProd.current_workers++;
+                        Active_Employees[i].GetComponent<Animator>().Play("jim_work");
 
-					Product tmpProd = GM_Bill.instance.Queue[j];
-                    Active_Employees[i].GetComponent<laborer_script>().assigned_Product = tmpProd; //assign the product we are checking to the employee
-                    tmpProd.current_workers++;
-                    Active_Employees[i].GetComponent<Animator>().Play("jim_work");
+                    } //------End of Queue loop
+                    GM_Bill.instance.Queue.Remove(Active_Employees[i].GetComponent<laborer_script>().assigned_Product);
+                }else
+                {
+                    print("nothing in the queue");
+                }
 
-                } //------End of Queue loop
-                GM_Bill.instance.Queue.Remove(Active_Employees[i].GetComponent<laborer_script>().assigned_Product);
                 
             }
            

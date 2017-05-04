@@ -38,13 +38,12 @@ public class GM_Mats : MonoBehaviour {
 		materialSlider.GetComponent<Slider> ().value = 0;
 		materialSlider.transform.GetChild (0).GetComponent<Text> ().text = "" + 0;
 		materialSlider.transform.GetChild (1).gameObject.SetActive (false);
+        Material_Tick_Start();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKeyDown (KeyCode.Space)) {
-			Material_Tick_Start ();
-		}
+
 
 	}
 
@@ -116,7 +115,7 @@ public class GM_Mats : MonoBehaviour {
 			GM_Alpha.instance.money -= (cost_Tick_per*materialSlider.GetComponent<Slider>().value);
 			GM_Alpha.instance.money_Text.text = "$" + GM_Alpha.instance.money;
 		}else { //but if it will go over let's split the difference and fill it up to the max	
-			print(tmp-max_Storage);
+			
 			current_Mats += (max_Storage-current_Mats);
 			GM_Alpha.instance.money -= ((tmp - max_Storage) * cost_Tick_per);
 			GM_Alpha.instance.money_Text.text = "$" + GM_Alpha.instance.money;
