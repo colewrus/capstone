@@ -76,10 +76,12 @@ public class employeeManager : MonoBehaviour {
 				if (Active_Employees [i].GetComponent<laborer_script> ().assigned_Product.rawCost > 0) {
 					Active_Employees [i].GetComponent<laborer_script> ().assigned_Product.rawCost -= Active_Employees [i].GetComponent<laborer_script> ().workScore;
 				}
-				if(Active_Employees [i].GetComponent<laborer_script> ().assigned_Product.rawCost <= 0) {					
-					Active_Employees [i].GetComponent<laborer_script> ().assigned_Product = null;
+				if(Active_Employees [i].GetComponent<laborer_script> ().assigned_Product.rawCost <= 0) {
+                    GM_Alpha.instance.money += Active_Employees[i].GetComponent<laborer_script>().assigned_Product.value;
+                    Active_Employees [i].GetComponent<laborer_script> ().assigned_Product = null;
 					Active_Employees [i].GetComponent<Animator> ().Play ("work_idle");
 					Active_Employees [i].GetComponent<laborer_script> ().products_Made++;
+                    
 				}
 			} 
 		}
@@ -89,29 +91,24 @@ public class employeeManager : MonoBehaviour {
 	public void Assign_Product(){ //assign products
 				
 		for (int i = 0; i < Active_Employees.Count; i++) { //Go through employees list
+            print(Active_Employees[i].name);
 			
 			if (Active_Employees [i].GetComponent<laborer_script> ().assigned_Product == null) {				
 				
 				for (int j = 0; j < GM_Bill.instance.Queue.Count; j++) { //the queue list
-				
 
-					if (GM_Bill.instance.Queue [j].current_workers < GM_Bill.instance.Queue[j].maximum_workers) { //if there is space for another worker in the object
-						if (GM_Mats.instance.current_Mats > GM_Bill.instance.Queue [j].materialCost) {
-							Product tmpProd = GM_Bill.instance.Queue [j];
-							GM_Mats.instance.current_Mats -= tmpProd.materialCost;
-							Active_Employees [i].GetComponent<laborer_script> ().assigned_Product = tmpProd; //assign the product we are checking to the employee
-							tmpProd.current_workers++;
-							GM_Bill.instance.Queue.Remove (tmpProd);
-							break;
+                    print(GM_Bill.instance.Queue[j].name);
 
-						} else {
-							print ("not enough materials");
-							//make text float up from employee showing not enough materials
-						}
-					}	
-				} //------End of Queue loop
+					Product tmpProd = GM_Bill.instance.Queue[j];
+                    Active_Employees[i].GetComponent<laborer_script>().assigned_Product = tmpProd; //assign the product we are checking to the employee
+                    tmpProd.current_workers++;
+                    Active_Employees[i].GetComponent<Animator>().Play("jim_work");
 
-			}
+                } //------End of Queue loop
+                GM_Bill.instance.Queue.Remove(Active_Employees[i].GetComponent<laborer_script>().assigned_Product);
+                
+            }
+           
 		} //--------End of Active employee loop
 
 	}
