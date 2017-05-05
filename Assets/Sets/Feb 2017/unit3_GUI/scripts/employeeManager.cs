@@ -16,6 +16,8 @@ public class employeeManager : MonoBehaviour {
 	public float total_Daily_Cost;
 	public int MaxEmployees;
 
+	public float energy_Coefficient; //energy upgrade modifier
+
     public float employee_Tick_delay;
 
 	public Image hireIcon;
@@ -32,6 +34,7 @@ public class employeeManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		energy_Coefficient = 1;
 		
 		for (int i = 0; i < Employee_List.Count; i++) {
 			if (Employee_List [i] != null) {				
@@ -79,8 +82,8 @@ public class employeeManager : MonoBehaviour {
                     //do a material check
                     if(GM_Mats.instance.current_Mats > Active_Employees[i].GetComponent<laborer_script>().workScore)
                     {
-                        GM_Mats.instance.current_Mats -= Mathf.Round(Active_Employees[i].GetComponent<laborer_script>().workScore);
-                        Active_Employees[i].GetComponent<laborer_script>().assigned_Product.rawCost -= Active_Employees[i].GetComponent<laborer_script>().workScore;
+						GM_Mats.instance.current_Mats -= Mathf.Round(Active_Employees[i].GetComponent<laborer_script>().workScore * energy_Coefficient);
+						Active_Employees[i].GetComponent<laborer_script>().assigned_Product.rawCost -= (Active_Employees[i].GetComponent<laborer_script>().workScore * energy_Coefficient);
                         Active_Employees[i].GetComponent<laborer_script>().progressBar.transform.GetChild(0).GetComponent<Image>().fillAmount = 1-(Active_Employees[i].GetComponent<laborer_script>().assigned_Product.rawCost / Active_Employees[i].GetComponent<laborer_script>().assigned_Product.materialCost);
 
                     }else //more mats needed
@@ -146,8 +149,8 @@ public class employeeManager : MonoBehaviour {
         {
             obj.GetComponent<laborer_script>().level++;
             obj.GetComponent<laborer_script>().workScore = 1.2f;
-            obj.GetComponent<laborer_script>().wage += 25;
-            total_Daily_Cost += 25;
+            obj.GetComponent<laborer_script>().wage += 50;
+            total_Daily_Cost += 50;
             //reset the gui
             GM_Alpha.instance.Update_Wage_Text();
             obj.GetComponent<laborer_script>().ui_element.transform.GetChild(1).GetComponent<Text>().text = "-$" + obj.GetComponent<laborer_script>().wage;
@@ -160,8 +163,8 @@ public class employeeManager : MonoBehaviour {
         {
             obj.GetComponent<laborer_script>().level++;
             obj.GetComponent<laborer_script>().workScore = 1.25f;
-            obj.GetComponent<laborer_script>().wage += 25;
-            total_Daily_Cost += 25;
+            obj.GetComponent<laborer_script>().wage += 50;
+            total_Daily_Cost += 50;
             //reset the gui
             GM_Alpha.instance.Update_Wage_Text();
             obj.GetComponent<laborer_script>().ui_element.transform.GetChild(1).GetComponent<Text>().text = "-$" + obj.GetComponent<laborer_script>().wage;

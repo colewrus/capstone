@@ -71,6 +71,8 @@
      <Compile Include="Assets\UIController\Examples\Popups\Scripts\UIControllerExample8.cs" />
      <Compile Include="Assets\UIController\Scripts\UIController.cs" />
      <Compile Include="Assets\UIController\Scripts\UIControllerStateMachine.cs" />
+     <Compile Include="Assets\final\scripts\GM_Upgrade.cs" />
+     <Compile Include="Assets\soundManager.cs" />
      <None Include="Assets\UIController\README.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
