@@ -15,6 +15,8 @@ public class laborer_script : MonoBehaviour{
 	public float wage;
 	public AnimatorController animC;
 	public bool hired;
+    public float level;
+    public GameObject ui_element;
 
 	public float workScore; //how much work per tick the employee performs
 

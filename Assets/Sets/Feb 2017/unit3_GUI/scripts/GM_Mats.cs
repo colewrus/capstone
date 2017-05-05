@@ -102,7 +102,7 @@ public class GM_Mats : MonoBehaviour {
 				current_Mats += (max_Storage-current_Mats);
 			}
 
-			buttonText.text = "Materials:\n" + current_Mats + "/" + max_Storage;
+			buttonText.text = "Materials\n" + current_Mats + "/" + max_Storage;
 			panel_Total_text.text = "Materials:\n" + current_Mats + "/" + max_Storage;
 		}
 	}
@@ -115,7 +115,7 @@ public class GM_Mats : MonoBehaviour {
 			GM_Alpha.instance.money -= (cost_Tick_per * materialSlider.GetComponent<Slider> ().value);
 			GM_Alpha.instance.money_Text.text = "$" + GM_Alpha.instance.money;
 		} else if (current_Mats == max_Storage) {
-			print ("niet");
+			print ("niet");                      //!---------------------------------------------------------------------
 		}else { //but if it will go over let's split the difference and fill it up to the max	
 			
 			current_Mats += (max_Storage-current_Mats);
@@ -124,7 +124,7 @@ public class GM_Mats : MonoBehaviour {
 
 		}
 
-		buttonText.text = "Materials:\n" + current_Mats + "/" + max_Storage;
+		buttonText.text = "Materials\n" + current_Mats + "/" + max_Storage;
 		panel_Total_text.text = "Materials:\n" + current_Mats + "/" + max_Storage;
 	}
 

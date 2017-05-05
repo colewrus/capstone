@@ -77,16 +77,13 @@ public class GM_Bill : MonoBehaviour {
                 current_Product_cost_text.text = "-" + current_Hover_product.rawCost + "m";
                 current_Product_value.text = "+$" + current_Hover_product.value;
 
-            } else {
-				print ("can't even");
+            } else {				
 				return;
 			}
 		}
 		if (dir == "button_right") {
 			//do right
-
-			if (current_Hover_product != warehouse [warehouse.Count - 1]) {
-				
+			if (current_Hover_product != warehouse [warehouse.Count - 1]) {				
 
 				//reset the hover product
 				carousel_Pos++;

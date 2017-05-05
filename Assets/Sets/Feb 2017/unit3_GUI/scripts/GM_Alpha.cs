@@ -56,6 +56,7 @@ public class GM_Alpha : MonoBehaviour {  //------------------------BASICALLY THE
 
 			GameObject tmp = (GameObject)Instantiate (employeeManager.instance.Employee_List [0], new Vector3 (0, 1, 1), Quaternion.identity);
 
+          
 
 			if (employeeManager.instance.Active_Employees.Count < employeePos.Count) {
 				tmp.transform.position = employeePos [employeeManager.instance.Active_Employees.Count];
@@ -66,13 +67,9 @@ public class GM_Alpha : MonoBehaviour {  //------------------------BASICALLY THE
 			SpriteRenderer tmpSprite = tmp.GetComponent<SpriteRenderer> ();
 			tmpSprite.sprite = tmp.GetComponent<laborer_script> ().characterSprite;
 
-			//tmp.gameObject.name = employeeManager.instance.Employee_List [ListPos].GetComponent<laborer_script> ().name;
-			//laborer_script tmpLS = tmp.AddComponent <laborer_script>() as laborer_script;
 			employeeManager.instance.Active_Employees.Add (tmp);
 			employeeManager.instance.total_Daily_Cost += tmp.GetComponent<laborer_script> ().wage; //add the newest wage to the daily cost
-			//employeeManager.instance.Employee_List[ListPos].GetComponent<laborer_script>().hired = true; //set the employee bool to hired so e we can make sure stuff in the carousel works
 
-			//employeeManager.instance.Carousel (); //this guy is causing trouble, problem with not having a new employee to pull the character sprite from
 
 			if (employeeManager.instance.Active_Employees.Count == 1) { //if we actually have employees then add 
 				employee_Fire_List.SetActive (true);
@@ -123,8 +120,6 @@ public class GM_Alpha : MonoBehaviour {  //------------------------BASICALLY THE
 		} else {
 			employeeManager.instance.hireIcon.gameObject.SetActive (false);
 		}
-
-
 	}
 
 
@@ -149,6 +144,7 @@ public class GM_Alpha : MonoBehaviour {  //------------------------BASICALLY THE
 		_tmp.transform.GetChild (0).gameObject.GetComponent<Image> ().sprite = eObj.GetComponent<laborer_script> ().characterSprite; //set variables to the object we just made
 		_tmp.transform.GetChild (0).gameObject.transform.localScale = new Vector2(0.65f, 1);
 		_tmp.transform.GetChild (1).gameObject.GetComponent<Text> ().text = "-$" + eObj.GetComponent<laborer_script> ().wage;
+        eObj.GetComponent<laborer_script>().ui_element = _tmp;
 		//_tmp.transform.GetChild (2).gameObject.GetComponent<employeeList> ().placeInActiveList = (employeeManager.instance.Active_Employees.Count - 1);
 	}
 
