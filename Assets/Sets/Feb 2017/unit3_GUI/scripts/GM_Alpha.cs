@@ -13,7 +13,8 @@ public class GM_Alpha : MonoBehaviour {  //------------------------BASICALLY THE
 	public GameObject employee_Fire_List; //make the list handler appear in the GUI should be named "current_Employees"
 	public GameObject employee_Listing; //add the actual UI object that holds the info
 	public GameObject employee_hire_view; //this is the sprite for the employee you are viewing to hire
-
+    
+    
 
 	public float employee_Offset_x;
 	public float employee_Offset_y;
@@ -75,9 +76,15 @@ public class GM_Alpha : MonoBehaviour {  //------------------------BASICALLY THE
 				employee_Fire_List.SetActive (true);
 				wagesObj.SetActive (true);//activate the text that shows the daily cost
 			}
-			Animator anim = employee_hire_view.GetComponent<Animator> ();
+
+            tmp.GetComponent<laborer_script>().progressBar = tmp.transform.GetChild(2).gameObject;
+            tmp.transform.GetChild(2).transform.SetParent((GameObject.Find("Canvas").transform));
+            tmp.GetComponent<laborer_script>().progressBar.transform.position = Camera.main.WorldToScreenPoint(tmp.transform.position);
+            tmp.GetComponent<laborer_script>().progressBar.transform.GetChild(0).GetComponent<Image>().fillAmount = 0;
+      
+            Animator anim = employee_hire_view.GetComponent<Animator> ();
 			anim.Play ("employee_hire");
-			// Function below will 
+			
 			tmp.GetComponent<Animator> ().Play ("work_idle");
 			//update the employee that we are viewing to hire		
 
@@ -129,6 +136,8 @@ public class GM_Alpha : MonoBehaviour {  //------------------------BASICALLY THE
 
 		if (counted == 1) {
 			GUIM.instance.laborerFocus = employeeManager.instance.Active_Employees [0].transform.position + (transform.forward * -2);
+           
+            //reset the size and position of the progress bars
 		} else if (counted > 1 && counted < 7) {
 			GUIM.instance.laborerFocus = employeeManager.instance.Active_Employees [1].transform.position + (transform.forward * -2);
 		}
@@ -162,13 +171,27 @@ public class GM_Alpha : MonoBehaviour {  //------------------------BASICALLY THE
 	void CameraSize(){
 		if (employeeManager.instance.Active_Employees.Count == 1) {
 			Camera.main.orthographicSize = 3;
-		}
-		if (employeeManager.instance.Active_Employees.Count == 2) {
+            employeeManager.instance.Active_Employees[0].GetComponent<laborer_script>().progressBar.transform.localScale = new Vector3(0.5f, 0.5f, 1);
+            employeeManager.instance.Active_Employees[0].GetComponent<laborer_script>().progressBar.transform.position = Camera.main.WorldToScreenPoint(employeeManager.instance.Active_Employees[0].transform.position - transform.up);
+        }
+		if (employeeManager.instance.Active_Employees.Count >= 2) {
 			Camera.main.orthographicSize = 5;
-		}
-		if (employeeManager.instance.Active_Employees.Count == 6) {
+            for(int i=0; i < employeeManager.instance.Active_Employees.Count; i++)
+            {
+                employeeManager.instance.Active_Employees[i].GetComponent<laborer_script>().progressBar.transform.localScale = new Vector3(0.3f, 0.3f, 1);
+                employeeManager.instance.Active_Employees[i].GetComponent<laborer_script>().progressBar.transform.position = Camera.main.WorldToScreenPoint(employeeManager.instance.Active_Employees[i].transform.position - transform.up);
+            }
+
+        }
+		if (employeeManager.instance.Active_Employees.Count >= 6) {
+
 			Camera.main.orthographicSize = 7;
-		}
+            for (int i = 0; i < employeeManager.instance.Active_Employees.Count; i++)
+            {
+                employeeManager.instance.Active_Employees[i].GetComponent<laborer_script>().progressBar.transform.localScale = new Vector3(0.2f, 0.2f, 1);
+                employeeManager.instance.Active_Employees[i].GetComponent<laborer_script>().progressBar.transform.position = Camera.main.WorldToScreenPoint(employeeManager.instance.Active_Employees[i].transform.position - transform.up);
+            }
+        }
 	}
 
 

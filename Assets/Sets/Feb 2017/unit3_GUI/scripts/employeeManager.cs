@@ -11,6 +11,7 @@ public class employeeManager : MonoBehaviour {
 	public List<GameObject> Employee_UI_Fire_List = new List<GameObject> (); //this is holding the listed employees 
 
     public List<Material> particle_Sprites = new List<Material>();
+    public GameObject progress_Bar;
 
 	public float total_Daily_Cost;
 	public int MaxEmployees;
@@ -80,6 +81,8 @@ public class employeeManager : MonoBehaviour {
                     {
                         GM_Mats.instance.current_Mats -= Mathf.Round(Active_Employees[i].GetComponent<laborer_script>().workScore);
                         Active_Employees[i].GetComponent<laborer_script>().assigned_Product.rawCost -= Active_Employees[i].GetComponent<laborer_script>().workScore;
+                        Active_Employees[i].GetComponent<laborer_script>().progressBar.transform.GetChild(0).GetComponent<Image>().fillAmount = 1-(Active_Employees[i].GetComponent<laborer_script>().assigned_Product.rawCost / Active_Employees[i].GetComponent<laborer_script>().assigned_Product.materialCost);
+
                     }else //more mats needed
                     {                        
                         //run the particle system for mats
@@ -92,6 +95,8 @@ public class employeeManager : MonoBehaviour {
                     //Play the particles for money
                     Active_Employees[i].transform.GetChild(0).GetComponent<ParticleSystemRenderer>().material = particle_Sprites[0];
                     Active_Employees[i].transform.GetChild(0).GetComponent<ParticleSystem>().Play();
+
+                    Active_Employees[i].GetComponent<laborer_script>().progressBar.transform.GetChild(0).GetComponent<Image>().fillAmount = 0;
 
                     GM_Alpha.instance.money += Active_Employees[i].GetComponent<laborer_script>().assigned_Product.value;
                     Active_Employees [i].GetComponent<laborer_script> ().assigned_Product = null;

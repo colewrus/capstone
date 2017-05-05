@@ -15,6 +15,8 @@ public class Product : ScriptableObject{
 	public int maximum_workers;
 	public int current_workers;
 
+
+    public float static_raw_cost; //for our progress bar
 	public float rawCost; //the work variable to determine how much work gets done
 
 }
