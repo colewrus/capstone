@@ -96,17 +96,13 @@ public class GM_Alpha : MonoBehaviour {  //------------------------BASICALLY THE
 			ListPos++;
             employeeManager.instance.startTick();
 			if (employeeManager.instance.Active_Employees.Count > employeePos.Count) {
-				print ("hellfire and destruction");
+				soundManager.instance.effects.PlayOneShot (soundManager.instance.effectsList [2]);
 				tmp.SetActive (false);
-				/*
-				tmp.transform.GetChild (0).gameObject.SetActive (false);
-				tmp.GetComponent<SpriteRenderer> ().gameObject.SetActive (false);
-				tmp.GetComponent<Animator> ().gameObject.SetActive (false);
-				*/
 			}
 
 		} else {
 			print ("max employees");
+			soundManager.instance.effects.PlayOneShot (soundManager.instance.effectsList [2]);
 			//do something to show max reached
 				//play sounds
 				//animate the max text

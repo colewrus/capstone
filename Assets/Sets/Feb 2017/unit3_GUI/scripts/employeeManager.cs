@@ -119,6 +119,7 @@ public class employeeManager : MonoBehaviour {
 
         if (obj.GetComponent<laborer_script>().products_Made == 5)
         {
+			soundManager.instance.effects.PlayOneShot (soundManager.instance.effectsList [3]);
             obj.GetComponent<laborer_script>().level++;
             obj.GetComponent<laborer_script>().workScore = 1.1f;
             obj.GetComponent<laborer_script>().wage += 25;
@@ -133,6 +134,7 @@ public class employeeManager : MonoBehaviour {
 
         if (obj.GetComponent<laborer_script>().products_Made == 10)
         {
+			soundManager.instance.effects.PlayOneShot (soundManager.instance.effectsList [3]);
             obj.GetComponent<laborer_script>().level++;
             obj.GetComponent<laborer_script>().workScore = 1.15f;
             obj.GetComponent<laborer_script>().wage += 25;
@@ -147,6 +149,7 @@ public class employeeManager : MonoBehaviour {
 
         if (obj.GetComponent<laborer_script>().products_Made == 15)
         {
+			soundManager.instance.effects.PlayOneShot (soundManager.instance.effectsList [3]);
             obj.GetComponent<laborer_script>().level++;
             obj.GetComponent<laborer_script>().workScore = 1.2f;
             obj.GetComponent<laborer_script>().wage += 50;
@@ -161,6 +164,7 @@ public class employeeManager : MonoBehaviour {
 
         if (obj.GetComponent<laborer_script>().products_Made == 20)
         {
+			soundManager.instance.effects.PlayOneShot (soundManager.instance.effectsList [3]);
             obj.GetComponent<laborer_script>().level++;
             obj.GetComponent<laborer_script>().workScore = 1.25f;
             obj.GetComponent<laborer_script>().wage += 50;
